@@ -30,6 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,14 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\Drivers\Display\IDisplayDriver.cs" />
+    <Compile Include="Modules\Infrastructure\GameFactory.cs" />
+    <Compile Include="Modules\Infrastructure\IGameContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modules\Config\" />
-    <Folder Include="Modules\Drivers\Display\" />
     <Folder Include="Modules\Drivers\Input\" />
     <Folder Include="Modules\Game\" />
-    <Folder Include="Modules\Infrastructure\" />
     <Folder Include="Modules\Interfaces\" />
     <Folder Include="Modules\Map\" />
     <Folder Include="Modules\Players\" />
