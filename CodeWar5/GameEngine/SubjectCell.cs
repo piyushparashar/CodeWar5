@@ -6,5 +6,6 @@ namespace CodeWar5.GameEngine.Drivers
 {
     public class SubjectCell
     {
+
     }
 }
