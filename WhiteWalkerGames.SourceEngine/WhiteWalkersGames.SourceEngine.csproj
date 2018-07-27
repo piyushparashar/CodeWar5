@@ -34,17 +34,26 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modules\Drivers\Display\IDisplayDriver.cs" />
     <Compile Include="Modules\Infrastructure\GameFactory.cs" />
     <Compile Include="Modules\Infrastructure\IGameContext.cs" />
+    <Compile Include="Modules\Views\DisplayCanvas.xaml.cs">
+      <DependentUpon>DisplayCanvas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Views\FieldCell.cs" />
+    <Compile Include="Modules\Views\SubjectCell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +65,12 @@
     <Folder Include="Modules\Players\" />
     <Folder Include="Modules\Rules\" />
     <Folder Include="Modules\ViewModel\" />
-    <Folder Include="Modules\Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Modules\Views\DisplayCanvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -71,6 +71,7 @@
     <Compile Include="GameEngine\IInputDriver.cs" />
     <Compile Include="GameEngine\InputDriver.cs" />
     <Compile Include="GameEngine\SubjectCell.cs" />
+    <Compile Include="GameController.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -100,8 +101,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WhiteWalkerGames.SourceEngine\WhiteWalkersGames.SourceEngine.csproj">
+      <Project>{AA882B52-506A-44CD-A998-01D2ECEBDE4E}</Project>
+      <Name>WhiteWalkersGames.SourceEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
