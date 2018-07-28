@@ -24,6 +24,7 @@ namespace CodeWar5.GameEngine
         private int myHealth;
         private bool myGameOver = false;
 
+
         private readonly string[,] myField = new string[,]
         {
             {"", Hill, Mine, "", Trench},
