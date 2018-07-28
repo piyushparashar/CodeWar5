@@ -45,6 +45,7 @@
     <Compile Include="Modules\Drivers\Display\IDisplayDriver.cs" />
     <Compile Include="Modules\Infrastructure\GameFactory.cs" />
     <Compile Include="Modules\Infrastructure\IGameContext.cs" />
+    <Compile Include="Modules\Rules\SampleClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +55,6 @@
     <Folder Include="Modules\Interfaces\" />
     <Folder Include="Modules\Map\" />
     <Folder Include="Modules\Players\" />
-    <Folder Include="Modules\Rules\" />
     <Folder Include="Modules\ViewModel\" />
     <Folder Include="Modules\Views\" />
   </ItemGroup>
