@@ -11,6 +11,9 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         string Description { get; }
 
         int ScoringWeight { get; }
+
+        ushort DistributionWeight { get; }
+
         MapEntityMultiplicity Multiplicity { get; set; }
     }
 }

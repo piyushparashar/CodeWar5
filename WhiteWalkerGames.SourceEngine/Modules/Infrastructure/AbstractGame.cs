@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using WhiteWalkersGames.SourceEngine.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
@@ -21,9 +22,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 
            
         }
-
-     
-    
 
         public virtual void Restart()
         {
@@ -49,37 +47,37 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 
     internal class SinglePlayerGame : AbstractGame
     {
-        private const string Mine = "X";
-        private const string Hill = "H";
-        private const string Trench = "T";
-        private const string River = "R";
-        private const string EnemySoldier = "S";
-        private const string Exit = "E";
-
         private int myCurrentRow;
+        private int myNextRow;
         private int myCurrentColumn;
+        private int myNextColumn;
         private double myScore;
         private int myHealth;
         private bool myGameOver = false;
 
-        string[,] myField = new string[,]
-          {
-            {"", Hill, Mine, "", Trench},
-            {Trench, "", "", EnemySoldier, ""},
-            {Mine, EnemySoldier, Mine, "", Mine},
-            {Hill, "", Hill, "", Trench},
-            {River, EnemySoldier, "", "", Exit},
-          };
+        private IGameContext myGameContext;
+        private ushort myRowsCount;
+        private ushort myColumnsCount;
+
+        private IMapEntity[,] myFieldMap;
 
         public SinglePlayerGame(IGameContext gameContext) : base(gameContext)
         {
             myInputAdapter.InputReceived += OnInputReceived;
+            myGameContext = gameContext;
+            myRowsCount = gameContext.DisplayConfiguration.Rows;
+            myColumnsCount = gameContext.DisplayConfiguration.Columns;
+
+            myFieldMap = new IMapEntity[myRowsCount, myColumnsCount];
         }
 
         public override void Start()
         {
+            base.Start();
             myDisplayAdapter.DisplayMessage("");
-            myDisplayAdapter.DrawField(myField);
+
+            
+            myDisplayAdapter.DrawField(myGameContext.DisplayConfiguration.MapEntities, myRowsCount, myColumnsCount, ref myFieldMap); // should use map entities to draw
 
             myCurrentRow = 0;
             myCurrentColumn = 0;
@@ -93,27 +91,31 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         private void OnInputReceived(GameInputEventArgs gameInputEventArgs)
         {
 
-            if (gameInputEventArgs.Input == Key.Left)
+            if(!AreCoordinatesValid(gameInputEventArgs))
             {
-                myCurrentColumn--;
+                return;
             }
-            if (gameInputEventArgs.Input == Key.Right)
-            {
-                myCurrentColumn++;
-            }
-            if (gameInputEventArgs.Input == Key.Up)
-            {
-                myCurrentRow--;
-            }
-            if (gameInputEventArgs.Input == Key.Down)
-            {
-                myCurrentRow++;
-            }
+
+            //Do scoring
+            //Evaluate what is th score
+            //If possible to move ?
+            //Yes 
+            //Is score > 0 
+            //YES
+
+
+            
+
+          
+              
+
+
+
+            //After evaluation and scoring update the coordinates and display
+            myCurrentColumn = myNextColumn;
+            myCurrentRow = myNextRow;
 
             myDisplayAdapter.DrawSubject(myCurrentRow, myCurrentColumn);
-
-            myScore -= GetScore();
-            myDisplayAdapter.DisplayScore(myScore);
 
             if (!myGameOver && myScore <= 0)
             {
@@ -122,24 +124,57 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             }
         }
 
-        int GetScore()
+        private bool AreCoordinatesValid(GameInputEventArgs gameInputEventArgs)
         {
-            if (string.IsNullOrEmpty(myField[myCurrentRow, myCurrentColumn]))
-            {
-                return 5;
-            }
-            else if (myField[myCurrentRow, myCurrentColumn] == Mine)
-            {
-                myDisplayAdapter.DisplayMessage("Game Over, you lost!!!");
-                myGameOver = true;
-            }
-            else if (myField[myCurrentRow, myCurrentColumn] == Exit)
-            {
-                myDisplayAdapter.DisplayMessage("Game Over, you won!!!");
-                myGameOver = true;
-            }
 
-            return 10;
+            switch(gameInputEventArgs.Input)
+            {
+                case Key.Left:
+                    if(myCurrentColumn == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        myNextColumn--;
+                        return true;
+                    }
+                    break;
+                case Key.Right:
+                    if (myCurrentColumn == myColumnsCount - 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        myNextColumn++;
+                        return true;
+                    }
+                    break;
+                case Key.Up:
+                    if (myCurrentRow == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        myNextRow--;
+                        return true;
+                    }
+                    break;
+                case Key.Down:
+                    if (myCurrentRow == myRowsCount - 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        myNextRow++;
+                        return true;
+                    }
+                    break;
+            }
+            return false;
         }
     }
 }
