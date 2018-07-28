@@ -1,75 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-    public interface IGame
+
+    public class PlayerMoveEventArgs
     {
-        void Start();
+        IMapEntity CurrentMapEntity { get; set; }
 
-        void Restart();
-    }
-
-    public interface IGameHost
-    {
-        void CreateGame(IGameContext context);
-
-        void StartGame();
-
-        void RestartGame();
-
-
-    }
-
-    public interface IGameContext
-    {
-        ContentControl ParentControl { get; }
-
-        IInputConfiguration InputConfiguration { get; }
-
-        IDisplayConfiguration DisplayConfiguration { get; }
-
-        bool IsTwoPlayer { get; }
+        int Score { get; set; }
     }
 
     public class GameFactory
     {
-        IGameHost CreateGameHost()
+        public static IGameController CreateGameController(IGameContext gameContext)
         {
-            return null;
+            return new GameController(gameContext);
         }
     }
 
-    public interface IDisplayConfiguration
+    public enum MapEntityMultiplicity
     {
-        string GameTitle { get; }
+        Single,
 
-        List<IMapEntity> MapEntities { get; }
-
-        ushort Columns { get; }
-
-        ushort Rows { get; }
-    }
-
-    public interface IMapEntity
-    {
-        Image Icon { get; }
-
-        string DisplayText { get; }
-
-        string Description { get; }
-
-        int ScoringWeight { get; }
-    }
-
-
-    public interface IInputConfiguration
-    {
-        IInputElement InputElement { get; }
+        Multiple
     }
 }
