@@ -1,44 +1,41 @@
 ﻿using System.Windows;
-using CodeWar5.GameEngine;
-using CodeWar5.GameEngine.Drivers;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
-namespace CodeWar5
+namespace HauntedHouse
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IDisplayContext
+    public partial class MainWindow : Window
     {
-
         private IGameController myGameHost = null;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            MapEntity mapEntityMine = new MapEntity
+            MapEntity mapEntityGhost = new MapEntity
             {
-                Description = "Mine",
+                Description = "Ghost",
                 Icon = null,
-                DisplayText = "X",
+                DisplayText = "G",
                 ScoringWeight = -100,
                 DistributionWeight = 1
             };
-            MapEntity mapEntityTrench = new MapEntity
+            MapEntity mapEntityZombie = new MapEntity
             {
-                Description = "Trench",
+                Description = "Zombie",
                 Icon = null,
-                DisplayText = "T",
+                DisplayText = "Z",
                 ScoringWeight = -10,
                 DistributionWeight = 3
             };
-            MapEntity mapEntityEnemy = new MapEntity
+            MapEntity mapEntityWall = new MapEntity
             {
-                Description = "Enemy Soldier",
+                Description = "Wall",
                 Icon = null,
-                DisplayText = "ES",
+                DisplayText = "W",
                 ScoringWeight = 10,
                 DistributionWeight = 2
             };
@@ -50,21 +47,13 @@ namespace CodeWar5
                 ScoringWeight = 0,
                 Multiplicity = MapEntityMultiplicity.Single
             };
-            MapEntity mapEntityHill = new MapEntity
-            {
-                Description = "Hill",
-                Icon = null,
-                DisplayText = "H",
-                ScoringWeight = -5,
-                DistributionWeight = 1,
-                IsMoveAllowedOnThis = false
-            };
+         
 
             DisplayConfiguration displayConfiguration = new DisplayConfiguration
             {
                 Columns = 5,
-                GameTitle = "Tank Buster",
-                MapEntities = new System.Collections.Generic.List<IMapEntity> { mapEntityMine, mapEntityHill, mapEntityExit, mapEntityEnemy, mapEntityTrench },
+                GameTitle = "Haunted House",
+                MapEntities = new System.Collections.Generic.List<IMapEntity> { mapEntityGhost, mapEntityExit, mapEntityWall, mapEntityZombie },
                 Rows = 5,
                 MaxScore = 100,
                 MoveScore = -5,

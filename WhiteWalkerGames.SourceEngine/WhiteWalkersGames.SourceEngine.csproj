@@ -49,33 +49,31 @@
   <ItemGroup>
     <Compile Include="Modules\Drivers\Display\DisplayAdapter.cs" />
     <Compile Include="Modules\Drivers\Display\InputAdapter.cs" />
-    <Compile Include="Modules\Infrastructure\AbstractGame.cs" />
+    <Compile Include="Modules\Game\AbstractGame.cs" />
+    <Compile Include="Modules\Game\SinglePlayerGame.cs" />
     <Compile Include="Modules\Infrastructure\DisplayConfiguration.cs" />
-    <Compile Include="Modules\Infrastructure\GameContext.cs" />
-    <Compile Include="Modules\Infrastructure\GameController.cs" />
+    <Compile Include="Modules\Game\GameContext.cs" />
+    <Compile Include="Modules\Game\GameController.cs" />
     <Compile Include="Modules\Infrastructure\GameFactory.cs" />
-    <Compile Include="Modules\Infrastructure\IDisplayConfiguration.cs" />
-    <Compile Include="Modules\Infrastructure\IGame.cs" />
-    <Compile Include="Modules\Infrastructure\IGameContext.cs" />
-    <Compile Include="Modules\Infrastructure\IGameController.cs" />
-    <Compile Include="Modules\Infrastructure\IInputConfiguration.cs" />
-    <Compile Include="Modules\Infrastructure\IMapEntity.cs" />
+    <Compile Include="Modules\Interfaces\IDisplayConfiguration.cs" />
+    <Compile Include="Modules\Game\IGame.cs" />
+    <Compile Include="Modules\Game\IGameContext.cs" />
+    <Compile Include="Modules\Game\IGameController.cs" />
+    <Compile Include="Modules\Interfaces\IInputConfiguration.cs" />
+    <Compile Include="Modules\Interfaces\IMapEntity.cs" />
     <Compile Include="Modules\Infrastructure\InputConfiguration.cs" />
-    <Compile Include="Modules\Infrastructure\MapEntity.cs" />
-    <Compile Include="Modules\ViewModel\TankBattleViewModel.cs" />
+    <Compile Include="Modules\Map\MapEntity.cs" />
+    <Compile Include="Modules\ViewModel\GameViewModel.cs" />
+    <Compile Include="Modules\Interfaces\IGameViewModel.cs" />
     <Compile Include="Modules\Views\DisplayCanvas.xaml.cs">
       <DependentUpon>DisplayCanvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Views\FieldCell.cs" />
     <Compile Include="Modules\Views\SubjectCell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modules\Config\" />
     <Folder Include="Modules\Drivers\Input\" />
-    <Folder Include="Modules\Game\" />
-    <Folder Include="Modules\Interfaces\" />
-    <Folder Include="Modules\Map\" />
     <Folder Include="Modules\Players\" />
     <Folder Include="Modules\Rules\" />
   </ItemGroup>

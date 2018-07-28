@@ -1,50 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
-using WhiteWalkersGames.SourceEngine.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
-using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-    internal abstract class AbstractGame : IGame
-    {
-        protected InputAdapter myInputAdapter;
-        private IGameViewModel myGameViewModel;
-        protected IDisplayAdapter myDisplayAdapter;
-
-        internal AbstractGame(IGameContext gameContext)
-        {
-            myGameViewModel = new GameViewModel(gameContext.DisplayConfiguration);
-
-            myDisplayAdapter = new DisplayAdapter(myGameViewModel);
-
-            myInputAdapter = new InputAdapter(gameContext.InputConfiguration);
-
-           
-        }
-
-        public virtual void Restart()
-        {
-            //??
-            //may be change the location of subject/player to original location and reset score
-        }
-
-        public virtual void Start()
-        {
-            myInputAdapter.StartListening();
-        }
-
-        public virtual void Stop()
-        {
-            myInputAdapter.StopListening();
-        }
-
-        public IGameViewModel GetViewModel()
-        {
-            return myGameViewModel;
-        }
-    }
-
     internal class SinglePlayerGame : AbstractGame
     {
         private int myCurrentRow;
@@ -76,8 +35,9 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             base.Start();
             myDisplayAdapter.DisplayMessage("");
 
+            UpdateLegends();
             
-            myDisplayAdapter.DrawField(myGameContext.DisplayConfiguration.MapEntities, myRowsCount, myColumnsCount, ref myFieldMap); // should use map entities to draw
+            myDisplayAdapter.DrawField(myGameContext.DisplayConfiguration.MapEntities, myRowsCount, myColumnsCount, ref myFieldMap); 
 
             myCurrentRow = 0;
             myCurrentColumn = 0;
@@ -86,6 +46,17 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             myGameOver = false;
             myScore = 100;
             myDisplayAdapter.DisplayScore(myScore);
+        }
+
+        private void UpdateLegends()
+        {
+            List<string> legends = new List<string>();
+            foreach (IMapEntity mapEntity in myGameContext.DisplayConfiguration.MapEntities)
+            {
+                legends.Add($"{mapEntity.DisplayText}\t{mapEntity.Description}");
+            }
+
+            myGameViewModel.Legends = legends;
         }
 
         private void OnInputReceived(GameInputEventArgs gameInputEventArgs)
@@ -104,13 +75,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             //YES
 
 
-            
-
-          
-              
-
-
-
             //After evaluation and scoring update the coordinates and display
             myCurrentColumn = myNextColumn;
             myCurrentRow = myNextRow;
@@ -121,6 +85,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             {
                 myDisplayAdapter.DisplayMessage("Game Over, you lost!!!");
                 myGameOver = true;
+                base.Stop();
             }
         }
 
