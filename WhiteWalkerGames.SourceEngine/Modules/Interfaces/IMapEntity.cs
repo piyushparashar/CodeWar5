@@ -15,5 +15,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         ushort DistributionWeight { get; }
 
         MapEntityMultiplicity Multiplicity { get; set; }
+
+        bool IsMoveAllowedOnThis { get; set; }
     }
 }
