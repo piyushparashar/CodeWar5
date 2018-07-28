@@ -4,7 +4,7 @@
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Views
 {
-    internal class FieldCell
+    public class FieldCell
     {
         public string Text { get; }
 

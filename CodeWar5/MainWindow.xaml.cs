@@ -2,6 +2,7 @@
 using CodeWar5.GameEngine;
 using CodeWar5.GameEngine.Drivers;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
 namespace CodeWar5
 {
@@ -10,19 +11,12 @@ namespace CodeWar5
     /// </summary>
     public partial class MainWindow : Window, IDisplayContext
     {
-        private DummyGame myGame;
 
-        private WhiteWalkersGames.SourceEngine.Modules.Infrastructure.IGameController myGameHost = null;
+        private IGameController myGameHost = null;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            //IDisplayDriver displayDriver = new DisplayDriver(this, myCanvas);
-            //IInputDriver inputDriver = new InputDriver(this);
-            //myGame = new DummyGame(displayDriver, inputDriver);
-
-
 
             MapEntity mapEntityMine = new MapEntity
             {
@@ -68,7 +62,8 @@ namespace CodeWar5
                 MapEntities = new System.Collections.Generic.List<IMapEntity> { mapEntityMine, mapEntityHill, mapEntityExit, mapEntityEnemy, mapEntityTrench },
                 Rows = 5,
                 MaxScore = 100,
-                MoveScore = -5
+                MoveScore = -5,
+                ParentControl = myCanvas
             };
 
             IGameContext gameContext = new GameContext
@@ -80,6 +75,10 @@ namespace CodeWar5
             };
 
             myGameHost = GameFactory.CreateGameController(gameContext);
+
+            IGameViewModel viewModel = myGameHost.GetGameViewModel();
+
+            this.DataContext = viewModel;
         }
 
         private void StartGame(object sender, RoutedEventArgs e)
