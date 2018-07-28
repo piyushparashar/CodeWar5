@@ -62,9 +62,12 @@
     <Compile Include="Modules\Interfaces\IInputConfiguration.cs" />
     <Compile Include="Modules\Interfaces\IMapEntity.cs" />
     <Compile Include="Modules\Infrastructure\InputConfiguration.cs" />
+
     <Compile Include="Modules\Map\MapEntity.cs" />
+    <Compile Include="Modules\Rules\IMoveEvaluator.cs" />
     <Compile Include="Modules\ViewModel\GameViewModel.cs" />
     <Compile Include="Modules\Interfaces\IGameViewModel.cs" />
+
     <Compile Include="Modules\Views\DisplayCanvas.xaml.cs">
       <DependentUpon>DisplayCanvas.xaml</DependentUpon>
     </Compile>
@@ -75,13 +78,6 @@
     <Folder Include="Modules\Config\" />
     <Folder Include="Modules\Drivers\Input\" />
     <Folder Include="Modules\Players\" />
-    <Folder Include="Modules\Rules\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Modules\Views\DisplayCanvas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
