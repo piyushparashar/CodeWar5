@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WhiteWalkersGames.SourceEngine.Modules.Views;assembly=WhiteWalkersGames.SourceEngine"
+              xmlns:local2="clr-namespace:WhiteWalkersGames.SourceEngine.Modules.Infrastructure;assembly=WhiteWalkersGames.SourceEngine"
+ 
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Grid>
@@ -22,11 +24,11 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="myCanvas">
+                    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="myCanvas" >
                         <Grid.Resources>
-                            <DataTemplate DataType="{x:Type local:FieldCell}">
+                            <DataTemplate DataType="{x:Type local2:DataBoundMapEntity}">
                                 <Border Height="50" Width="50" Margin="1" BorderThickness="1" BorderBrush="Black" Focusable="False">
-                                    <TextBlock Text="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding DisplayText}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                                 </Border>
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type local:SubjectCell}">
@@ -35,6 +37,7 @@
                                 </Border>
                             </DataTemplate>
                         </Grid.Resources>
+                         
                     </Grid>
 
                     <ItemsControl ItemsSource="{Binding Legends}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="60,0,0,0">
@@ -53,3 +56,16 @@
         </Border>
     </Grid>
 </Window>
+
+<!--<Grid.Resources>
+                            <DataTemplate DataType="{x:Type local:FieldCell}">
+                                <Border Height="50" Width="50" Margin="1" BorderThickness="1" BorderBrush="Black" Focusable="False">
+                                    <TextBlock Text="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                </Border>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type local:SubjectCell}">
+                                <Border Height="30" Width="30" Background="#77FF0000" HorizontalAlignment="Center" VerticalAlignment="Center" Focusable="False">
+
+                                </Border>
+                            </DataTemplate>
+                        </Grid.Resources>-->

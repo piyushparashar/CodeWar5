@@ -57,7 +57,6 @@
     <Compile Include="Modules\Infrastructure\IDisplayConfiguration.cs" />
     <Compile Include="Modules\Infrastructure\IGame.cs" />
     <Compile Include="Modules\Infrastructure\IGameContext.cs" />
-    <Compile Include="Modules\Infrastructure\IGameContext1.cs" />
     <Compile Include="Modules\Infrastructure\IGameController.cs" />
     <Compile Include="Modules\Infrastructure\IInputConfiguration.cs" />
     <Compile Include="Modules\Infrastructure\IMapEntity.cs" />

@@ -24,6 +24,7 @@ namespace CodeWar5
                 Icon = null,
                 DisplayText = "X",
                 ScoringWeight = -100,
+                DistributionWeight = 1
             };
             MapEntity mapEntityTrench = new MapEntity
             {
@@ -31,6 +32,7 @@ namespace CodeWar5
                 Icon = null,
                 DisplayText = "T",
                 ScoringWeight = -10,
+                DistributionWeight = 3
             };
             MapEntity mapEntityEnemy = new MapEntity
             {
@@ -38,6 +40,7 @@ namespace CodeWar5
                 Icon = null,
                 DisplayText = "ES",
                 ScoringWeight = 10,
+                DistributionWeight = 2
             };
             MapEntity mapEntityExit = new MapEntity
             {
@@ -51,8 +54,9 @@ namespace CodeWar5
             {
                 Description = "Hill",
                 Icon = null,
-                DisplayText = "X",
+                DisplayText = "H",
                 ScoringWeight = -5,
+                DistributionWeight = 1
             };
 
             DisplayConfiguration displayConfiguration = new DisplayConfiguration
