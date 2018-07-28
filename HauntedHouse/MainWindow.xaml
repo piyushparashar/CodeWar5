@@ -1,4 +1,4 @@
-﻿<Window x:Class="CodeWar5.MainWindow"
+﻿<Window x:Class="HauntedHouse.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -37,7 +37,7 @@
                                 </Border>
                             </DataTemplate>
                         </Grid.Resources>
-                         
+
                     </Grid>
 
                     <ItemsControl ItemsSource="{Binding Legends}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="60,0,0,0">
@@ -56,16 +56,3 @@
         </Border>
     </Grid>
 </Window>
-
-<!--<Grid.Resources>
-                            <DataTemplate DataType="{x:Type local:FieldCell}">
-                                <Border Height="50" Width="50" Margin="1" BorderThickness="1" BorderBrush="Black" Focusable="False">
-                                    <TextBlock Text="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                                </Border>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type local:SubjectCell}">
-                                <Border Height="30" Width="30" Background="#77FF0000" HorizontalAlignment="Center" VerticalAlignment="Center" Focusable="False">
-
-                                </Border>
-                            </DataTemplate>
-                        </Grid.Resources>-->
