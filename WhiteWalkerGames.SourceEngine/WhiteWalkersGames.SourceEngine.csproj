@@ -62,6 +62,7 @@
     <Compile Include="Modules\Infrastructure\IMapEntity.cs" />
     <Compile Include="Modules\Infrastructure\InputConfiguration.cs" />
     <Compile Include="Modules\Infrastructure\MapEntity.cs" />
+    <Compile Include="Modules\Rules\IMoveEvaluator.cs" />
     <Compile Include="Modules\ViewModel\TankBattleViewModel.cs" />
     <Compile Include="Modules\Views\DisplayCanvas.xaml.cs">
       <DependentUpon>DisplayCanvas.xaml</DependentUpon>
@@ -77,13 +78,6 @@
     <Folder Include="Modules\Interfaces\" />
     <Folder Include="Modules\Map\" />
     <Folder Include="Modules\Players\" />
-    <Folder Include="Modules\Rules\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Modules\Views\DisplayCanvas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
