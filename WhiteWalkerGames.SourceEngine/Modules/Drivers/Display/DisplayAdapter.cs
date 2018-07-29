@@ -28,6 +28,8 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
         void DisplayHealth(int health);
 
         void DisplayCustomScore(string message);
+
+        void DisplayGameTitle(string title);
     }
 
     public class DisplayAdapter : IDisplayAdapter
@@ -109,6 +111,7 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
 
                             if ((entityToCopy.Multiplicity == MapEntityMultiplicity.Multiple || entityAddCount < 1))
                             {
+                               
                                 while (entityToCopy.Multiplicity != MapEntityMultiplicity.Single && !IsCountUnderDistributionWeight(entityAddCount, entityToCopy.DistributionWeight, totalRows * totalColumns))
                                 {
                                     var tempMapEntityIndex = random.Next(0, mapEntities.Count);
@@ -184,9 +187,9 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
             myViewModel.Message = message;
         }
 
-        public void DrawField(List<IMapEntity> mapEntities)
+        public void DisplayGameTitle(string title)
         {
-            throw new System.NotImplementedException();
+            myViewModel.GameTitle = title;
         }
     }
 }

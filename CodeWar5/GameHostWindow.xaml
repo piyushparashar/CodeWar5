@@ -1,4 +1,4 @@
-﻿<Window x:Class="CodeWar5.MainWindow"
+﻿<Window x:Class="WhiteWalkersGames.Host.GameHostWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,17 +13,26 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                <ComboBox ItemsSource="{Binding Games}" Grid.Row="0" HorizontalAlignment="Right">
+
+                </ComboBox>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <TextBlock Text="{Binding GameTitle}" FontSize="20" Margin="10,0,10,0"></TextBlock>                   
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
                     <TextBlock Text="{Binding CustomScore}" Margin="10,0,10,0"></TextBlock>
                     <TextBlock Text="{Binding Health}" Margin="10,0,10,0"></TextBlock>
                     <TextBlock Text="{Binding Score}"></TextBlock>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="myCanvas" >
                         <Grid.Resources>
                             <DataTemplate DataType="{x:Type local2:DataBoundMapEntity}">
@@ -49,9 +58,9 @@
                     </ItemsControl>
                 </StackPanel>
 
-                <TextBlock Foreground="Brown" FontSize="25" Grid.Row="2" Text="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25"></TextBlock>
+                <TextBlock Foreground="Brown" FontSize="25" Grid.Row="4" Text="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25"></TextBlock>
 
-                <Button Grid.Row="3" Height="25" Width="100" Margin="10" Content="Start" Click="StartGame"></Button>
+                <Button Grid.Row="5" Height="25" Width="100" Margin="10" Content="Start" Click="StartGame"></Button>
             </Grid>
         </Border>
     </Grid>

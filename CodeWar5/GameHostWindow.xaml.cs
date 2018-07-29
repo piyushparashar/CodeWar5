@@ -1,20 +1,18 @@
 ﻿using System.Windows;
-using CodeWar5.GameEngine;
-using CodeWar5.GameEngine.Drivers;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
-namespace CodeWar5
+namespace WhiteWalkersGames.Host
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IDisplayContext
+    public partial class GameHostWindow : Window
     {
 
         private IGameController myGameHost = null;
 
-        public MainWindow()
+        public GameHostWindow()
         {
             InitializeComponent();
 
@@ -24,7 +22,6 @@ namespace CodeWar5
                 Icon = null,
                 DisplayText = "X",
                 ScoringWeight = -100,
-                DistributionWeight = 1
             };
             MapEntity mapEntityTrench = new MapEntity
             {
@@ -32,7 +29,6 @@ namespace CodeWar5
                 Icon = null,
                 DisplayText = "T",
                 ScoringWeight = -10,
-                DistributionWeight = 3
             };
             MapEntity mapEntityEnemy = new MapEntity
             {
@@ -40,7 +36,6 @@ namespace CodeWar5
                 Icon = null,
                 DisplayText = "ES",
                 ScoringWeight = 10,
-                DistributionWeight = 2
             };
             MapEntity mapEntityExit = new MapEntity
             {
@@ -56,8 +51,6 @@ namespace CodeWar5
                 Icon = null,
                 DisplayText = "H",
                 ScoringWeight = -5,
-                DistributionWeight = 1,
-                IsMoveAllowedOnThis = false
             };
 
             DisplayConfiguration displayConfiguration = new DisplayConfiguration
