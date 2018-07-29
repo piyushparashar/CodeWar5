@@ -8,6 +8,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         public MapEntity()
         {
             Multiplicity = MapEntityMultiplicity.Multiple;
+            IsMoveAllowedOnThis = true;
         }
         public Image Icon { get; set; }
 

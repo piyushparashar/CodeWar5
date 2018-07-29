@@ -38,7 +38,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
 
     public interface IDisplayExtension
     {
-        // void MoveMapEntityOnMap(IMapEntity)
+        void MoveMapEntityOnMap(IMapEntity mapEntity);
     }
 
 }
