@@ -20,7 +20,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         private List<string> myLegends;
         private string myGameTitle;
         private KeyPressCommand myKeyPressCommand;
-
+        
         internal GameViewModel(IDisplayConfiguration displayConfiguration, IInputAdapter inputAdapter)
         {
             myDisplayConfiguration = displayConfiguration;

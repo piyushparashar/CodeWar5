@@ -22,7 +22,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands
 
             if (keyBinding != null)
             {
-
                 myInputAdapter.FireKeyPressed(keyBinding.Key);
             }
         }

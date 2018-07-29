@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WhiteWalkersGames.SourceEngine.Modules.Views;assembly=WhiteWalkersGames.SourceEngine"
+        xmlns:localbehavior="clr-namespace:WhiteWalkersGames.SourceEngine.Modules.ViewModel.Behaviors;assembly=WhiteWalkersGames.SourceEngine"
               xmlns:local2="clr-namespace:WhiteWalkersGames.SourceEngine.Modules.Infrastructure;assembly=WhiteWalkersGames.SourceEngine"
  
         mc:Ignorable="d"
@@ -27,8 +28,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ComboBox ItemsSource="{Binding Games}" Grid.Row="0" HorizontalAlignment="Right">
-
+                <ComboBox localbehavior:ComboBoxGameSelectionChangedBehavior.GameSelection="True" ItemsSource="{Binding Games}" Grid.Row="0" HorizontalAlignment="Right" >
                 </ComboBox>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                     <TextBlock Text="{Binding GameTitle}" FontSize="20" Margin="10,0,10,0"></TextBlock>                   

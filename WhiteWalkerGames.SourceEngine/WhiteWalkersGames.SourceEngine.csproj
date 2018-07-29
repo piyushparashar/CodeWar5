@@ -63,6 +63,7 @@
     <Compile Include="Modules\Map\MapEntity.cs" />
     <Compile Include="Modules\Rules\IMoveEvaluator.cs" />
     <Compile Include="Modules\Rules\ScoreEvaluator.cs" />
+    <Compile Include="Modules\ViewModel\Behaviors\ComboBoxGameSelectionChangedBehavior.cs" />
     <Compile Include="Modules\ViewModel\Commands\KeyPressCommand.cs" />
     <Compile Include="Modules\ViewModel\GameViewModel.cs" />
     <Compile Include="Modules\Interfaces\IGameViewModel.cs" />
