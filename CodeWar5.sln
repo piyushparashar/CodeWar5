@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeWar5", "CodeWar5\CodeWar5.csproj", "{814D1CB5-A1A3-4877-A769-991827E4DBB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteWalkersGames.Host", "CodeWar5\WhiteWalkersGames.Host.csproj", "{814D1CB5-A1A3-4877-A769-991827E4DBB4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteWalkersGames.SourceEngine", "WhiteWalkerGames.SourceEngine\WhiteWalkersGames.SourceEngine.csproj", "{AA882B52-506A-44CD-A998-01D2ECEBDE4E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HauntedHouse", "HauntedHouse\HauntedHouse.csproj", "{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +31,6 @@ Global
 		{AA882B52-506A-44CD-A998-01D2ECEBDE4E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA882B52-506A-44CD-A998-01D2ECEBDE4E}.Release|x64.ActiveCfg = Release|Any CPU
 		{AA882B52-506A-44CD-A998-01D2ECEBDE4E}.Release|x64.Build.0 = Release|Any CPU
-		{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}.Debug|x64.Build.0 = Debug|Any CPU
-		{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}.Release|x64.ActiveCfg = Release|Any CPU
-		{19D61BA9-4B0A-4DB8-B2EB-8C823DC9450D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

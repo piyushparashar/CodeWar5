@@ -41,6 +41,8 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             base.Start();
             myDisplayAdapter.DisplayMessage("");
 
+            myDisplayAdapter.DisplayGameTitle(myGameContext.DisplayConfiguration.GameTitle);
+
             UpdateLegends();
             
             myDisplayAdapter.DrawField(myGameContext.DisplayConfiguration.MapEntities, myRowsCount, myColumnsCount, ref myFieldMap); 
