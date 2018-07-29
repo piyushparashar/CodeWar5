@@ -1,12 +1,15 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.Interfaces;
+using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
 namespace WhiteWalkersGames.Providers.TankBattle
 {
-    public class TankBattleProvider : IGameProvider
+    [Export(typeof(IGame2))]
+    public class TankBattleGame : IGame2
     {
-        public TankBattleProvider()
+        public TankBattleGame()
         {
             MapEntity mapEntityMine = new MapEntity
             {
@@ -45,22 +48,27 @@ namespace WhiteWalkersGames.Providers.TankBattle
                 ScoringWeight = -5,
             };
 
-            DisplayConfiguration displayConfiguration = new DisplayConfiguration
-            {
-                Columns = 5,
-                GameTitle = "Tank Buster",
-                MapEntities = new System.Collections.Generic.List<IMapEntity> { mapEntityMine, mapEntityHill, mapEntityExit, mapEntityEnemy, mapEntityTrench },
-                Rows = 5,
-                MaxScore = 100,
-                MoveScore = -5,
-            };
 
-            GameContext = new GameContext
-            {
-                DisplayConfiguration = displayConfiguration,
-            };
+            Columns = 5;
+            GameTitle = "Tank Buster";
+            Rows = 5;
+            MaxScore = 100;
+            MoveScore = -5;
+            MapEntities = new List<IMapEntity> { mapEntityMine, mapEntityHill, mapEntityExit, mapEntityEnemy, mapEntityTrench };
         }
 
-        public IGameContext GameContext { get; }
+        public List<IMapEntity> MapEntities { get; set; }
+
+        public string GameTitle { get; set; }
+
+        public List<IMoveEvaluator> MoveEvaluators { get; set; }
+
+        public ushort Columns { get; set; }
+
+        public ushort Rows { get; set; }
+
+        public int MaxScore { get; set; }
+
+        public int MoveScore { get; set; }
     }
 }

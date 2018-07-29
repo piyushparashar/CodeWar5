@@ -55,6 +55,7 @@
     <Compile Include="Modules\Game\GameContext.cs" />
     <Compile Include="Modules\Game\GameController.cs" />
     <Compile Include="Modules\Infrastructure\GameFactory.cs" />
+    <Compile Include="Modules\Infrastructure\IGame2.cs" />
     <Compile Include="Modules\Interfaces\IDisplayConfiguration.cs" />
     <Compile Include="Modules\Game\IGame.cs" />
     <Compile Include="Modules\Game\IGameContext.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="Modules\Interfaces\IMapEntity.cs" />
     <Compile Include="Modules\Infrastructure\InputConfiguration.cs" />
     <Compile Include="Modules\Map\MapEntity.cs" />
-    <Compile Include="Modules\Rules\IMoveEvaluator.cs" />
+    <Compile Include="Modules\Interfaces\IMoveEvaluator.cs" />
     <Compile Include="Modules\Rules\ScoreEvaluator.cs" />
     <Compile Include="Modules\ViewModel\GameViewModel.cs" />
     <Compile Include="Modules\Interfaces\IGameViewModel.cs" />
