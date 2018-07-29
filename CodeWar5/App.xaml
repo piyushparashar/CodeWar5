@@ -1,8 +1,7 @@
-﻿<Application x:Class="CodeWar5.App"
+﻿<Application x:Class="WhiteWalkersGames.Host.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CodeWar5"
-             StartupUri="MainWindow.xaml">
+             StartupUri="GameHostWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>

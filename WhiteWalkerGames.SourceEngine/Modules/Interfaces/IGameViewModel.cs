@@ -36,6 +36,9 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
             set;
         }
 
+        string GameTitle
+        { get; set; }
+
         Grid Canvas { get; }
     }
 }

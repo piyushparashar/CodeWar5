@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using WhiteWalkersGames.SourceEngine.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
@@ -20,6 +15,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         private string myCustomScore;
         private string myScore;
         private List<string> myLegends;
+        private string myGameTitle;
 
         internal GameViewModel(IDisplayConfiguration displayConfiguration)
         {
@@ -28,6 +24,16 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public string GameTitle
+        {
+            get { return myGameTitle; }
+            set
+            {
+                myGameTitle = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public string Message
         {
