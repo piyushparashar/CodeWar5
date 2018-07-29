@@ -1,21 +1,13 @@
-﻿using System.Windows;
+﻿using System.ComponentModel.Composition;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
-using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
+using WhiteWalkersGames.SourceEngine.Modules.Interfaces;
 
-namespace WhiteWalkersGames.Host
+namespace WhiteWalkersGames.Providers.TankBattle
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class GameHostWindow : Window
+    public class TankBattleProvider : IGameProvider
     {
-
-        private IGameController myGameHost = null;
-
-        public GameHostWindow()
+        public TankBattleProvider()
         {
-            InitializeComponent();
-
             MapEntity mapEntityMine = new MapEntity
             {
                 Description = "Mine",
@@ -61,27 +53,14 @@ namespace WhiteWalkersGames.Host
                 Rows = 5,
                 MaxScore = 100,
                 MoveScore = -5,
-                ParentControl = myCanvas
             };
 
-            IGameContext gameContext = new GameContext
+            GameContext = new GameContext
             {
                 DisplayConfiguration = displayConfiguration,
-                InputConfiguration = new InputConfiguration { InputElement = this },
-                //GameMode = GameMode.SinglePlayer,
-                //ParentControl = this.myCanvas,
             };
-
-            myGameHost = GameFactory.CreateGameController(gameContext);
-
-            IGameViewModel viewModel = myGameHost.GetGameViewModel();
-
-            this.DataContext = viewModel;
         }
 
-        private void StartGame(object sender, RoutedEventArgs e)
-        {
-            myGameHost.StartGame();
-        }
+        public IGameContext GameContext { get; }
     }
 }

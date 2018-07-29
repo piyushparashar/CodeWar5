@@ -5,14 +5,6 @@ using System.Threading.Tasks;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-
-    public class PlayerMoveEventArgs
-    {
-        IMapEntity CurrentMapEntity { get; set; }
-
-        int Score { get; set; }
-    }
-
     public class GameFactory
     {
         public static IGameController CreateGameController(IGameContext gameContext)

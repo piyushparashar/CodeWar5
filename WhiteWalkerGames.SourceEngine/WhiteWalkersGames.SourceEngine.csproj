@@ -59,6 +59,7 @@
     <Compile Include="Modules\Game\IGame.cs" />
     <Compile Include="Modules\Game\IGameContext.cs" />
     <Compile Include="Modules\Game\IGameController.cs" />
+    <Compile Include="Modules\Interfaces\IGameProvider.cs" />
     <Compile Include="Modules\Interfaces\IInputConfiguration.cs" />
     <Compile Include="Modules\Interfaces\IMapEntity.cs" />
     <Compile Include="Modules\Infrastructure\InputConfiguration.cs" />

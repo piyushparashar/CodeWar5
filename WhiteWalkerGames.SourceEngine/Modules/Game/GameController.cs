@@ -12,15 +12,14 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         {
             myGameContext = gameContext;
 
-            if (gameContext.IsTwoPlayer)
-            {
-                //two player game
-            }
-            else
-            {
+           // if (gameContext.GameMode == GameMode.Multiplayer)
+            //{
+            //    //two player game
+            //}
+            //else if(gameContext.GameMode == GameMode.SinglePlayer)
+            //{
                 myGame = new SinglePlayerGame(gameContext);
-            }
-
+            //}
         }
 
         public void RestartGame()

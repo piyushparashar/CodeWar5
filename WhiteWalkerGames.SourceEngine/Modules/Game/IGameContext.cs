@@ -1,4 +1,7 @@
-﻿namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+﻿using System.Collections.Generic;
+using WhiteWalkersGames.SourceEngine.Modules.Rules;
+
+namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
     public interface IGameContext
     {
@@ -6,6 +9,15 @@
 
         IDisplayConfiguration DisplayConfiguration { get; }
 
-        bool IsTwoPlayer { get; }
+        List<IMoveEvaluator> MoveEvaluators { get; }
+    }
+
+    public enum GameMode
+    {
+        SinglePlayer,
+
+        Multiplayer,
+
+        MultiplayerRemote
     }
 }

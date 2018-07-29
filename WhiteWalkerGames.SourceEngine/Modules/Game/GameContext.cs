@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
@@ -6,14 +8,15 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
     {
         public GameContext()
         {
-            IsTwoPlayer = false;
+            //GameMode = GameMode.SinglePlayer;
         }
-        public Grid ParentControl { get; set; }
 
         public IInputConfiguration InputConfiguration { get; set; }
 
         public IDisplayConfiguration DisplayConfiguration { get; set; }
 
-        public bool IsTwoPlayer { get; set; }
+        public List<IMoveEvaluator> MoveEvaluators {get; set;}
+
+        //public GameMode GameMode { get; set; }
     }
 }
