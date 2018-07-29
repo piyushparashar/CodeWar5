@@ -19,7 +19,7 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
 
         void DrawSubject(int row, int column);
 
-        void DisplayScore(double score);
+        void DisplayScore(int score);
 
         void DisplayMessage(string message);
 
@@ -92,11 +92,12 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                     }
                     else
                     {
+                        lastEntityPicked = mapEntityToPick;
                         do
                         {
                             mapEntityToPick = random.Next(0, mapEntities.Count + 3);
 
-                        } while (lastEntityPicked < mapEntities.Count && lastEntityPicked == mapEntityToPick);
+                        } while (lastEntityPicked == mapEntityToPick);
 
                         lastEntityPicked = mapEntityToPick;
 
@@ -106,8 +107,21 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
 
                             int entityAddCount = countMapping[entityToCopy];
 
-                            if ((entityToCopy.Multiplicity == MapEntityMultiplicity.Multiple || entityAddCount < 1) && IsCountUnderDistributionWeight(entityAddCount, entityToCopy.DistributionWeight, totalRows*totalColumns))
+                            if ((entityToCopy.Multiplicity == MapEntityMultiplicity.Multiple || entityAddCount < 1))
                             {
+                                while (entityToCopy.Multiplicity != MapEntityMultiplicity.Single && !IsCountUnderDistributionWeight(entityAddCount, entityToCopy.DistributionWeight, totalRows * totalColumns))
+                                {
+                                    var tempMapEntityIndex = random.Next(0, mapEntities.Count);
+                                    var tempEntity = mapEntities.ElementAt(tempMapEntityIndex);
+                                    if (lastEntityPicked == tempMapEntityIndex || tempEntity.Multiplicity == MapEntityMultiplicity.Single)
+                                    {
+                                        continue;
+                                    }
+                                    entityToCopy = tempEntity;
+                                    entityAddCount = countMapping[entityToCopy];
+                                    mapEntityToPick = tempMapEntityIndex;
+                                };
+
                                 cell.Content = new DataBoundMapEntity
                                 {
                                     Description = entityToCopy.Description,
@@ -115,7 +129,8 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                                     Icon = entityToCopy.Icon,
                                     ScoringWeight = entityToCopy.ScoringWeight,
                                     Row = y,
-                                    Column = x
+                                    Column = x,
+                                    IsMoveAllowedOnThis = entityToCopy.IsMoveAllowedOnThis
                                 };
 
                                 countMapping[entityToCopy]++;
@@ -159,14 +174,14 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
             Grid.SetColumn(mySubject, y);
         }
 
-        public void DisplayScore(double score)
+        public void DisplayScore(int score)
         {
             myViewModel.Score = $"Score: {score}";
         }
 
         public void DisplayMessage(string message)
         {
-
+            myViewModel.Message = message;
         }
 
         public void DrawField(List<IMapEntity> mapEntities)

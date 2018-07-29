@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
+using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
@@ -10,7 +11,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         private int myNextRow;
         private int myCurrentColumn;
         private int myNextColumn;
-        private double myScore;
+        private int myScore;
         private int myHealth;
         private bool myGameOver = false;
 
@@ -19,6 +20,8 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         private ushort myColumnsCount;
 
         private IMapEntity[,] myFieldMap;
+        private RouteMap myRouteMap;
+        private IScoreEvaluator myScoreEvaluator;
 
         public SinglePlayerGame(IGameContext gameContext) : base(gameContext)
         {
@@ -28,6 +31,9 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             myColumnsCount = gameContext.DisplayConfiguration.Columns;
 
             myFieldMap = new IMapEntity[myRowsCount, myColumnsCount];
+
+            myScoreEvaluator = new ScoreEvaluator(gameContext.DisplayConfiguration.MoveScore);
+            myRouteMap = new RouteMap();
         }
 
         public override void Start()
@@ -44,8 +50,9 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             myDisplayAdapter.DrawSubject(myCurrentRow, myCurrentColumn);
 
             myGameOver = false;
-            myScore = 100;
+            myScore = myGameContext.DisplayConfiguration.MaxScore;
             myDisplayAdapter.DisplayScore(myScore);
+            
         }
 
         private void UpdateLegends()
@@ -75,22 +82,50 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             //YES
 
 
-            //After evaluation and scoring update the coordinates and display
-            myCurrentColumn = myNextColumn;
-            myCurrentRow = myNextRow;
+            MoveEvaluationResult result = myScoreEvaluator.EvaluateScore(new ScoreEvaluationContext
+            {
+                CurrentColumn = myCurrentColumn,
+                CurrentRow = myCurrentRow,
+                CurrentScore = myScore,
+                FieldMap = myFieldMap,
+                NextColumn = myNextColumn,
+                NextRow = myNextRow,
+                RouteMap = myRouteMap,
+            });
 
-            myDisplayAdapter.DrawSubject(myCurrentRow, myCurrentColumn);
+            if(result.IsMovePossible)
+            {
+                myScore = result.EvaluatedScore;
+                
+                //After evaluation and scoring update the coordinates and display
+                myCurrentColumn = myNextColumn;
+                myCurrentRow = myNextRow;
+
+                myDisplayAdapter.DrawSubject(myCurrentRow, myCurrentColumn);
+                myDisplayAdapter.DisplayScore(myScore);
+                myRouteMap.Steps.Add(new RouteMapEntry
+                {
+                    Column = myCurrentColumn,
+                    Row = myCurrentRow,
+                    MapEntity = myFieldMap[myCurrentRow, myCurrentColumn],
+                    Score = myScore
+                });
+            }
 
             if (!myGameOver && myScore <= 0)
             {
+                myDisplayAdapter.DisplayScore(0);
                 myDisplayAdapter.DisplayMessage("Game Over, you lost!!!");
                 myGameOver = true;
+               
                 base.Stop();
             }
         }
 
         private bool AreCoordinatesValid(GameInputEventArgs gameInputEventArgs)
         {
+            myNextColumn = myCurrentColumn;
+            myNextRow = myCurrentRow;
 
             switch(gameInputEventArgs.Input)
             {
@@ -101,7 +136,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
                     }
                     else
                     {
-                        myNextColumn--;
+                        myNextColumn = myCurrentColumn - 1;
                         return true;
                     }
                     break;
@@ -112,7 +147,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
                     }
                     else
                     {
-                        myNextColumn++;
+                        myNextColumn = myCurrentColumn + 1;
                         return true;
                     }
                     break;
@@ -123,7 +158,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
                     }
                     else
                     {
-                        myNextRow--;
+                        myNextRow = myCurrentRow  - 1;
                         return true;
                     }
                     break;
@@ -134,7 +169,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
                     }
                     else
                     {
-                        myNextRow++;
+                        myNextRow = myCurrentRow + 1;
                         return true;
                     }
                     break;
