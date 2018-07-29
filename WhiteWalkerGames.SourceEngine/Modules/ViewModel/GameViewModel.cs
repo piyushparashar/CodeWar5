@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
@@ -9,18 +10,17 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 
     internal class GameViewModel : IGameViewModel
     {
-        private IDisplayConfiguration myDisplayConfiguration;
         private string myMessage;
         private string myHealth;
         private string myCustomScore;
         private string myScore;
         private List<string> myLegends;
         private string myGameTitle;
+        private ObservableCollection<ObservableCollection<DataBoundMapEntity>> myMapEntities;
 
-        internal GameViewModel(IDisplayConfiguration displayConfiguration)
+        internal GameViewModel()
         {
-            myDisplayConfiguration = displayConfiguration;
-            Canvas = displayConfiguration.ParentControl;
+         
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,6 +31,19 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
             set
             {
                 myGameTitle = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ObservableCollection<DataBoundMapEntity>> MapEntities
+        {
+            get
+            {
+                return myMapEntities;
+            }
+            set
+            {
+                myMapEntities = value;
                 RaisePropertyChanged();
             }
         }

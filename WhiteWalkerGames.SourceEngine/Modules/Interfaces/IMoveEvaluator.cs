@@ -40,5 +40,4 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
     {
         void MoveMapEntityOnMap(IMapEntity mapEntity);
     }
-
 }

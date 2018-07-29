@@ -6,10 +6,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
     {
         void StartGame();
 
-        void RestartGame();
-
-        void StopGame();
-
         IGameViewModel GetGameViewModel();
     }
 }

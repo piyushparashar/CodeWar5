@@ -3,7 +3,7 @@ using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-    public class IGame2
+    public interface IGame
     {
         string GameTitle { get; }
 

@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 {
     public interface IGameViewModel : INotifyPropertyChanged
     {
+        ObservableCollection<ObservableCollection<DataBoundMapEntity>> MapEntities { get; set; }
+
         string Message
         {
             get;
@@ -39,6 +43,5 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         string GameTitle
         { get; set; }
 
-        Grid Canvas { get; }
     }
 }

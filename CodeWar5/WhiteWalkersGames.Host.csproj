@@ -100,9 +100,11 @@
       <Project>{AA882B52-506A-44CD-A998-01D2ECEBDE4E}</Project>
       <Name>WhiteWalkersGames.SourceEngine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WhiteWalkersGames.Providers.TankBattle\WhiteWalkersGames.Providers.TankBattle.csproj">
+      <Project>{CC33786C-F7D8-4219-8BBA-C822A96F3999}</Project>
+      <Name>WhiteWalkersGames.Providers.TankBattle</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
