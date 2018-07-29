@@ -67,7 +67,6 @@ namespace WhiteWalkersGames.Host
             IGameContext gameContext = new GameContext
             {
                 DisplayConfiguration = displayConfiguration,
-                InputConfiguration = new InputConfiguration { InputElement = this },
                 IsTwoPlayer = false,
                 ParentControl = this.myCanvas,
             };

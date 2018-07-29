@@ -1,5 +1,4 @@
-﻿using System;
-using WhiteWalkersGames.SourceEngine.Drivers.Display;
+﻿using WhiteWalkersGames.SourceEngine.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
@@ -13,13 +12,11 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 
         internal AbstractGame(IGameContext gameContext)
         {
-            myGameViewModel = new GameViewModel(gameContext.DisplayConfiguration);
+            myInputAdapter = new InputAdapter();
+
+            myGameViewModel = new GameViewModel(gameContext.DisplayConfiguration, myInputAdapter);
 
             myDisplayAdapter = new DisplayAdapter(myGameViewModel);
-
-            myInputAdapter = new InputAdapter(gameContext.InputConfiguration);
-
-           
         }
 
         public virtual void Restart()

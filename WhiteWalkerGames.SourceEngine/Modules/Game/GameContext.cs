@@ -10,8 +10,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         }
         public Grid ParentControl { get; set; }
 
-        public IInputConfiguration InputConfiguration { get; set; }
-
         public IDisplayConfiguration DisplayConfiguration { get; set; }
 
         public bool IsTwoPlayer { get; set; }

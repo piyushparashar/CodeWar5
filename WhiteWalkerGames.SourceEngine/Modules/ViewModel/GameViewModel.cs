@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 {
@@ -10,17 +12,20 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
     internal class GameViewModel : IGameViewModel
     {
         private IDisplayConfiguration myDisplayConfiguration;
+        private IInputAdapter myInputAdapter;
         private string myMessage;
         private string myHealth;
         private string myCustomScore;
         private string myScore;
         private List<string> myLegends;
         private string myGameTitle;
+        private KeyPressCommand myKeyPressCommand;
 
-        internal GameViewModel(IDisplayConfiguration displayConfiguration)
+        internal GameViewModel(IDisplayConfiguration displayConfiguration, IInputAdapter inputAdapter)
         {
             myDisplayConfiguration = displayConfiguration;
             Canvas = displayConfiguration.ParentControl;
+            myInputAdapter = inputAdapter;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -101,6 +106,18 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         }
 
         public Grid Canvas { get; }
+
+        public KeyPressCommand KeyPressCommand {
+            get
+            {
+                if (myKeyPressCommand == null)
+                {
+                    myKeyPressCommand = new KeyPressCommand(myInputAdapter);
+                }
+
+                return myKeyPressCommand;
+            }
+        }
 
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
