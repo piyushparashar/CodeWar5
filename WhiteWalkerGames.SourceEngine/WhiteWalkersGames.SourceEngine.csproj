@@ -76,6 +76,7 @@
     <Compile Include="Modules\Rules\ScoreEvaluationContext.cs" />
     <Compile Include="Modules\Rules\ScoreEvaluator.cs" />
     <Compile Include="Modules\ViewModel\GameViewModel.cs" />
+    <Compile Include="Modules\ViewModel\MapEntityBackgroundConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
