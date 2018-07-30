@@ -54,7 +54,7 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
 
 
             Columns = 5;
-            GameTitle = "Tank Buster";
+            GameTitle = "Haunted House";
             Rows = 5;
             MaxScore = 100;
             MoveScore = -5;

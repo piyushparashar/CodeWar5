@@ -30,10 +30,12 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
         private IKeyPressCommand myKeyPressCommand;
 
 
-        public SinglePlayerGameController(IGameControllerContext gameControllerContext) : base(gameControllerContext)
+        public override void InitializeGame(IGameControllerContext context)
         {
-            myGame = gameControllerContext.Game;
-            myContext = gameControllerContext;
+            base.InitializeGame(context);
+
+            myGame = context.Game;
+            myContext = context;
             myRowsCount = myGame.Rows;
             myColumnsCount = myGame.Columns;
 
@@ -43,9 +45,8 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
             myRouteMap = new RouteMap();
 
             myKeyPressCommand = myGameViewModel.KeyPressCommand;
-            
-            myKeyPressCommand.InputReceived += OnInputReceived;
 
+            myKeyPressCommand.InputReceived += OnInputReceived;
         }
 
         public override void StartGame()

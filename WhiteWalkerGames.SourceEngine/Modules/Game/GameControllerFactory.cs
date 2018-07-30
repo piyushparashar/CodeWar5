@@ -4,13 +4,13 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
     internal class GameControllerFactory
     {
-        internal static IGameController CreateGameController(IGameControllerContext gameControllerContext)
+        internal static IGameController CreateGameController(GameMode gameMode)
         {
-            if(gameControllerContext.GameMode == GameMode.SinglePlayer)
+            if(gameMode == GameMode.SinglePlayer)
             {
-                return new SinglePlayerGameController(gameControllerContext);
+                return new SinglePlayerGameController();
             }
-            return new SinglePlayerGameController(gameControllerContext);
+            return new SinglePlayerGameController();
         }
     }
 }
