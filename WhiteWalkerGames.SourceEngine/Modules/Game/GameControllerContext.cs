@@ -1,6 +1,9 @@
-﻿namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+﻿using WhiteWalkersGames.SourceEngine.Modules.Common;
+using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+
+namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
-    public class GameControllerContext : IGameControllerContext
+    internal class GameControllerContext : IGameControllerContext
     {
         public IGame Game {get;set;}
 

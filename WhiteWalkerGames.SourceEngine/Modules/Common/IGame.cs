@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Common
 {
     public interface IGame
     {
@@ -9,7 +8,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 
         List<IMapEntity> MapEntities { get; }
 
-        List<IMoveEvaluator> MoveEvaluators { get; set; }
+        IMoveEvaluator MoveEvaluator { get; set; }
 
         ushort Columns { get; }
 

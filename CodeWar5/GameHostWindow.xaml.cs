@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using WhiteWalkersGames.Providers.TankBattle;
+using WhiteWalkersGames.SourceEngine.Modules.Game;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
@@ -80,7 +81,7 @@ namespace WhiteWalkersGames.Host
 
             TankBattleGame tankBattleGame = new TankBattleGame();
 
-            myGameHost = GameFactory.CreateGameController(new GameControllerContext {
+            myGameHost = GameControllerFactory.CreateGameController(new GameControllerContext {
                 Game = tankBattleGame,
                 GameMode = GameMode.SinglePlayer
             });

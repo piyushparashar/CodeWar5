@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
-    public class GameFactory
+    internal class GameControllerFactory
     {
-        public static IGameController CreateGameController(IGameControllerContext gameControllerContext)
+        internal static IGameController CreateGameController(IGameControllerContext gameControllerContext)
         {
             if(gameControllerContext.GameMode == GameMode.SinglePlayer)
             {

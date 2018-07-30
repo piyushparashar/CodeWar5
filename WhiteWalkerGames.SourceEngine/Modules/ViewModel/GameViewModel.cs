@@ -3,7 +3,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
+using WhiteWalkersGames.SourceEngine.Modules.Model;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 {

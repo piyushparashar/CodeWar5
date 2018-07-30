@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Rules
+namespace WhiteWalkersGames.SourceEngine.Modules.Common
 {
-    internal class RouteMap
+    public class RouteMap
     {
         public RouteMap()
         {
@@ -13,7 +12,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
         internal List<RouteMapEntry> Steps {get;set;}
     }
 
-    internal class RouteMapEntry
+    public class RouteMapEntry
     {
         internal int Row { get; set; }
 

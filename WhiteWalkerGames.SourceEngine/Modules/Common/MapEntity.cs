@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Common
 {
     public class MapEntity : IMapEntity
     {

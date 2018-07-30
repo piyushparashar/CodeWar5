@@ -2,7 +2,7 @@
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-    public interface IGameController
+    internal interface IGameController
     {
         void StartGame();
 

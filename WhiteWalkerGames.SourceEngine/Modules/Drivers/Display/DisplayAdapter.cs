@@ -6,13 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
 namespace WhiteWalkersGames.SourceEngine.Drivers.Display
 {
-    public interface IDisplayAdapter
+    internal interface IDisplayAdapter
     {
         void DrawField(List<IMapEntity> mapEntities, int rows, int colunms, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap);
 
@@ -31,10 +32,9 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
         void DisplayGameTitle(string title);
     }
 
-    public class DisplayAdapter : IDisplayAdapter
+    internal class DisplayAdapter : IDisplayAdapter
     {
         private IGameViewModel myViewModel;
-        private ContentControl mySubject;
 
         public DisplayAdapter(IGameViewModel viewModel)
         {
@@ -58,7 +58,6 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
         public void DrawField(List<IMapEntity> mapEntities, int totalRows, int totalColumns, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap)
         {
             fieldMap.Clear();
-            mySubject = null;
 
             Dictionary<IMapEntity, int> countMapping = new Dictionary<IMapEntity, int>();
 
@@ -77,15 +76,12 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                 for (int y = 0; y < totalRows; y++)
                 {
 
-                    var cell = new ContentControl();
+                    DataBoundMapEntity content = new EmptyMapEnity();
 
-                    if (x == 0 && y == 0)
-                    {
-                        cell.Content = new EmptyMapEnity();
-                    }
-                    else
+                    if(!(x == 0 && y ==0))
                     {
                         lastEntityPicked = mapEntityToPick;
+
                         do
                         {
                             mapEntityToPick = random.Next(0, mapEntities.Count + 3);
@@ -115,15 +111,10 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                                     mapEntityToPick = tempMapEntityIndex;
                                 };
 
-                                cell.Content = new DataBoundMapEntity
+                                content = new DataBoundMapEntity(entityToCopy)
                                 {
-                                    Description = entityToCopy.Description,
-                                    DisplayText = entityToCopy.DisplayText,
-                                    Icon = entityToCopy.Icon,
-                                    ScoringWeight = entityToCopy.ScoringWeight,
                                     Row = y,
                                     Column = x,
-                                    IsMoveAllowedOnThis = entityToCopy.IsMoveAllowedOnThis
                                 };
 
                                 if (!IsCountUnderDistributionWeight(countMapping[entityToCopy] +1, entityToCopy.DistributionWeight, totalRows * totalColumns))
@@ -135,38 +126,18 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                                 {
                                     countMapping[entityToCopy]++;
                                 }
-
-                               
                             }
-                            else
-                            {
-                                cell.Content = new EmptyMapEnity();
-                            }
-                        }
-                        else
-                        {
-                            cell.Content = new EmptyMapEnity();
                         }
                     }
 
 
-                    rowMapEntities.Add(cell.Content as DataBoundMapEntity);
+                    rowMapEntities.Add(content);
                 }
 
                 fieldMap.Add(rowMapEntities);
             }
 
             myViewModel.MapEntities = fieldMap;
-        }
-
-        private bool IsCountUnderDistributionWeight(int entityAddCount, int distributionWeight, int totalCells)
-        {
-            return  (distributionWeight == 0) || entityAddCount < (distributionWeight * totalCells /10);
-        }
-
-        public void DrawSubject(int x, int y)
-        {
-            
         }
 
         public void DisplayScore(int score)
@@ -182,6 +153,16 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
         public void DisplayGameTitle(string title)
         {
             myViewModel.GameTitle = title;
+        }
+
+        private bool IsCountUnderDistributionWeight(int entityAddCount, int distributionWeight, int totalCells)
+        {
+            return (distributionWeight == 0) || entityAddCount < (distributionWeight * totalCells / 10);
+        }
+
+        public void DrawSubject(int x, int y)
+        {
+
         }
     }
 }

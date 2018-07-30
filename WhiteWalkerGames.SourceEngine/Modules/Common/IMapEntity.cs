@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Common
 {
     public interface IMapEntity
     {
@@ -14,7 +14,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 
         ushort DistributionWeight { get; }
 
-        MapEntityMultiplicity Multiplicity { get; set; }
+        MapEntityMultiplicity Multiplicity { get; }
 
         bool IsMoveAllowedOnThis { get; set; }
     }

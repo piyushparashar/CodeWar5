@@ -2,10 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
+using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
     internal class SinglePlayerGameController : AbstractGameController
     {
@@ -34,7 +37,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 
             myFieldMap = new ObservableCollection<ObservableCollection<DataBoundMapEntity>>();
 
-            myScoreEvaluator = new ScoreEvaluator(myGame.MoveScore);
+            myScoreEvaluator = new ScoreEvaluator(myGame.MoveScore, myGame.MoveEvaluator);
             myRouteMap = new RouteMap();
         }
 
@@ -78,14 +81,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
                 return;
             }
 
-            //Do scoring
-            //Evaluate what is th score
-            //If possible to move ?
-            //Yes 
-            //Is score > 0 
-            //YES
-
-
             MoveEvaluationResult result = myScoreEvaluator.EvaluateScore(new ScoreEvaluationContext
             {
                 CurrentColumn = myCurrentColumn,
@@ -101,12 +96,16 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             {
                 myScore = result.EvaluatedScore;
 
+                myFieldMap[myCurrentRow][myCurrentColumn].IsActive = false;
+
                 //After evaluation and scoring update the coordinates and display
                 myCurrentColumn = myNextColumn;
                 myCurrentRow = myNextRow;
 
-                myDisplayAdapter.DrawSubject(myCurrentRow, myCurrentColumn);
+                myFieldMap[myCurrentRow][myCurrentColumn].IsActive = true;
+
                 myDisplayAdapter.DisplayScore(myScore);
+
                 myRouteMap.Steps.Add(new RouteMapEntry
                 {
                     Column = myCurrentColumn,

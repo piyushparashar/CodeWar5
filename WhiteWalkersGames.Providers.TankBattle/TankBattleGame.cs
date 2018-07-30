@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
-using WhiteWalkersGames.SourceEngine.Modules.Rules;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
 
 namespace WhiteWalkersGames.Providers.TankBattle
 {
     [Export(typeof(IGame))]
+    [ExportGameTitle("TankBattle")]
     public class TankBattleGame : IGame
     {
         public TankBattleGame()
@@ -63,9 +63,9 @@ namespace WhiteWalkersGames.Providers.TankBattle
 
         public List<IMapEntity> MapEntities { get; set; }
 
-        public string GameTitle { get; set; }
+        public IMoveEvaluator MoveEvaluator { get; set; }
 
-        public List<IMoveEvaluator> MoveEvaluators { get; set; }
+        public string GameTitle { get; set; }
 
         public ushort Columns { get; set; }
 
