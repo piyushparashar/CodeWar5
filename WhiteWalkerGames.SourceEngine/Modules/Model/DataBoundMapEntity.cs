@@ -1,16 +1,16 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-    public class DataBoundMapEntity : IMapEntity
+    internal class DataBoundMapEntity : IMapEntity
     {
-        public DataBoundMapEntity()
+        internal DataBoundMapEntity()
         {
 
         }
 
-        public DataBoundMapEntity(IMapEntity mapEntity)
+        protected internal DataBoundMapEntity(IMapEntity mapEntity)
         {
             Icon = mapEntity.Icon;
             DisplayText = mapEntity.DisplayText;

@@ -1,9 +1,9 @@
-﻿using System;
-using WhiteWalkersGames.SourceEngine.Drivers.Display;
+﻿using WhiteWalkersGames.SourceEngine.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
+using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
     internal abstract class AbstractGameController : IGameController
     {
@@ -26,6 +26,5 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         {
             return myGameViewModel;
         }
-       
     }
 }

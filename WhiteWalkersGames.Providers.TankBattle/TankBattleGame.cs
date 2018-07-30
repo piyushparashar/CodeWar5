@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.Rules;
 

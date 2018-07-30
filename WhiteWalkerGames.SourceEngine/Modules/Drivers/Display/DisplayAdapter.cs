@@ -6,15 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
 namespace WhiteWalkersGames.SourceEngine.Drivers.Display
 {
-    public interface IDisplayAdapter
+    internal interface IDisplayAdapter
     {
-        void DrawField(List<IMapEntity> mapEntities, int rows, int colunms, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap);
+        void DrawField(List<IMapEntity> mapEntities, int rows, int colunms, ref ObservableCollection<ObservableCollection<IMapEntity>> fieldMap);
 
         void DrawSubject(int row, int column);
 
@@ -31,10 +31,9 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
         void DisplayGameTitle(string title);
     }
 
-    public class DisplayAdapter : IDisplayAdapter
+    internal class DisplayAdapter : IDisplayAdapter
     {
         private IGameViewModel myViewModel;
-        private ContentControl mySubject;
 
         public DisplayAdapter(IGameViewModel viewModel)
         {
@@ -55,10 +54,9 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
             myViewModel.Legends = legends.ToList();
         }
 
-        public void DrawField(List<IMapEntity> mapEntities, int totalRows, int totalColumns, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap)
+        public void DrawField(List<IMapEntity> mapEntities, int totalRows, int totalColumns, ref ObservableCollection<ObservableCollection<IMapEntity>> fieldMap)
         {
             fieldMap.Clear();
-            mySubject = null;
 
             Dictionary<IMapEntity, int> countMapping = new Dictionary<IMapEntity, int>();
 
@@ -69,10 +67,10 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
             int lastEntityPicked = 0;
             int totalEntitiesTypes = mapEntities.Count;
 
-            ObservableCollection<DataBoundMapEntity> rowMapEntities = new ObservableCollection<DataBoundMapEntity>();
+            ObservableCollection<IMapEntity> rowMapEntities = new ObservableCollection<IMapEntity>();
             for (int x = 0; x < totalColumns; x++)
             {
-                rowMapEntities = new ObservableCollection<DataBoundMapEntity>();
+                rowMapEntities = new ObservableCollection<IMapEntity>();
 
                 for (int y = 0; y < totalRows; y++)
                 {
@@ -141,16 +139,6 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
             myViewModel.MapEntities = fieldMap;
         }
 
-        private bool IsCountUnderDistributionWeight(int entityAddCount, int distributionWeight, int totalCells)
-        {
-            return  (distributionWeight == 0) || entityAddCount < (distributionWeight * totalCells /10);
-        }
-
-        public void DrawSubject(int x, int y)
-        {
-            
-        }
-
         public void DisplayScore(int score)
         {
             myViewModel.Score = $"Score: {score}";
@@ -164,6 +152,16 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
         public void DisplayGameTitle(string title)
         {
             myViewModel.GameTitle = title;
+        }
+
+        private bool IsCountUnderDistributionWeight(int entityAddCount, int distributionWeight, int totalCells)
+        {
+            return (distributionWeight == 0) || entityAddCount < (distributionWeight * totalCells / 10);
+        }
+
+        public void DrawSubject(int x, int y)
+        {
+
         }
     }
 }

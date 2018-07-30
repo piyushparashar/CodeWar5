@@ -2,7 +2,7 @@
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-    public class InputConfiguration : IInputConfiguration
+    internal class InputConfiguration : IInputConfiguration
     {
         public IInputElement InputElement { get; set; }
     }

@@ -52,28 +52,26 @@
     <Compile Include="Modules\Game\AbstractGameController.cs" />
     <Compile Include="Modules\Game\GameControllerContext.cs" />
     <Compile Include="Modules\Game\GameMode.cs" />
-    <Compile Include="Modules\Game\IGameControllerContext.cs" />
+    <Compile Include="Modules\Interfaces\IGameControllerContext.cs" />
     <Compile Include="Modules\Game\SinglePlayerGameController.cs" />
-    <Compile Include="Modules\Infrastructure\GameFactory.cs" />
-    <Compile Include="Modules\Infrastructure\IGame.cs" />
-    <Compile Include="Modules\Infrastructure\MapEntityMultiplicity.cs" />
-    <Compile Include="Modules\Game\IGameController.cs" />
+    <Compile Include="Modules\Game\GameFactory.cs" />
+    <Compile Include="Modules\Common\IGame.cs" />
+    <Compile Include="Modules\Common\MapEntityMultiplicity.cs" />
+    <Compile Include="Modules\Interfaces\IGameController.cs" />
     <Compile Include="Modules\Interfaces\IGameViewModel.cs" />
     <Compile Include="Modules\Interfaces\IInputConfiguration.cs" />
-    <Compile Include="Modules\Interfaces\IMapEntity.cs" />
+    <Compile Include="Modules\Common\IMapEntity.cs" />
     <Compile Include="Modules\Infrastructure\InputConfiguration.cs" />
     <Compile Include="Modules\Model\DataBoundMapEntity.cs" />
     <Compile Include="Modules\Model\EmptyMapEnity.cs" />
-    <Compile Include="Modules\Map\MapEntity.cs" />
-    <Compile Include="Modules\Interfaces\IMoveEvaluator.cs" />
-    <Compile Include="Modules\Rules\RouteMap.cs" />
+    <Compile Include="Modules\Common\MapEntity.cs" />
+    <Compile Include="Modules\Common\IMoveEvaluator.cs" />
+    <Compile Include="Modules\Common\RouteMap.cs" />
     <Compile Include="Modules\Rules\ScoreEvaluationContext.cs" />
     <Compile Include="Modules\Rules\ScoreEvaluator.cs" />
     <Compile Include="Modules\ViewModel\GameViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\Drivers\Input\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

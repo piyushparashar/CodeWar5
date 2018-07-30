@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using WhiteWalkersGames.Providers.TankBattle;
+using WhiteWalkersGames.SourceEngine.Modules.Game;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 

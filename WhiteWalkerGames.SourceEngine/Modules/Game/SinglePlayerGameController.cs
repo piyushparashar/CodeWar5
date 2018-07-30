@@ -2,10 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
+using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
     internal class SinglePlayerGameController : AbstractGameController
     {
@@ -21,7 +23,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         private ushort myRowsCount;
         private ushort myColumnsCount;
         private IGame myGame;
-        private ObservableCollection<ObservableCollection<DataBoundMapEntity>> myFieldMap;
+        private ObservableCollection<ObservableCollection<IMapEntity>> myFieldMap;
         private RouteMap myRouteMap;
         private IScoreEvaluator myScoreEvaluator;
 
@@ -32,7 +34,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             myRowsCount = myGame.Rows;
             myColumnsCount = myGame.Columns;
 
-            myFieldMap = new ObservableCollection<ObservableCollection<DataBoundMapEntity>>();
+            myFieldMap = new ObservableCollection<ObservableCollection<IMapEntity>>();
 
             myScoreEvaluator = new ScoreEvaluator(myGame.MoveScore);
             myRouteMap = new RouteMap();

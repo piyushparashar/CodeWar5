@@ -1,4 +1,4 @@
-﻿namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+﻿namespace WhiteWalkersGames.SourceEngine.Modules.Common
 {
     public enum MapEntityMultiplicity
     {

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+﻿using System.Collections.ObjectModel;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Rules
+namespace WhiteWalkersGames.SourceEngine.Modules.Common
 {
     /// <summary>
     /// Responsible for evaluating each move
@@ -21,11 +20,11 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
 
         int NextColumn { get; set; }
 
-        List<IMapEntity> RouteMap { get; set; }
+        RouteMap RouteMap { get; set; }
+
+        ObservableCollection<ObservableCollection<IMapEntity>> FieldMap { get; set; }
 
         int CurrentScore { get; set; }
-
-        IDisplayExtension DisplayExtension { get; set; }
     }
 
     public class MoveEvaluationResult
@@ -33,11 +32,5 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
         public bool IsMovePossible { get; set; }
 
         public int EvaluatedScore { get; set; }
-    }
-
-
-    public interface IDisplayExtension
-    {
-        void MoveMapEntityOnMap(IMapEntity mapEntity);
     }
 }

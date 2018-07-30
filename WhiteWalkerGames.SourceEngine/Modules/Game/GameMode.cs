@@ -1,6 +1,6 @@
-﻿namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+﻿namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
-    public enum GameMode
+    internal enum GameMode
     {
         SinglePlayer,
 

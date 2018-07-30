@@ -1,8 +1,9 @@
 ﻿using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-    public class EmptyMapEnity : DataBoundMapEntity
+    internal class EmptyMapEnity : DataBoundMapEntity
     {
         public override Image Icon => null;
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Common
 {
     public interface IGame
     {
