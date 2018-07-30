@@ -4,14 +4,14 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
     public class EmptyMapEnity : DataBoundMapEntity
     {
-        public Image Icon => null;
+        public override Image Icon => null;
 
-        public string DisplayText => "";
+        public override string DisplayText => "";
 
-        public string Description => "";
+        public override string Description => "";
 
-        public int ScoringWeight => 0;
+        public override int ScoringWeight => 0;
 
-        public MapEntityMultiplicity Multiplicity { get => MapEntityMultiplicity.Multiple ; set => throw new System.NotImplementedException(); }
+        public override MapEntityMultiplicity Multiplicity { get => MapEntityMultiplicity.Multiple ; set => throw new System.NotImplementedException(); }
     }
 }

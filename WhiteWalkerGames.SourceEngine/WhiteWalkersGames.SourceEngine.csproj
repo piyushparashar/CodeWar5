@@ -55,7 +55,7 @@
     <Compile Include="Modules\Game\IGameControllerContext.cs" />
     <Compile Include="Modules\Game\SinglePlayerGameController.cs" />
     <Compile Include="Modules\Infrastructure\GameFactory.cs" />
-    <Compile Include="Modules\Infrastructure\IGame2.cs" />
+    <Compile Include="Modules\Infrastructure\IGame.cs" />
     <Compile Include="Modules\Infrastructure\MapEntityMultiplicity.cs" />
     <Compile Include="Modules\Game\IGameController.cs" />
     <Compile Include="Modules\Interfaces\IGameViewModel.cs" />

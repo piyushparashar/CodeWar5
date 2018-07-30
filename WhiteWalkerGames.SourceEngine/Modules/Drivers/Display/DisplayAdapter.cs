@@ -77,15 +77,12 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                 for (int y = 0; y < totalRows; y++)
                 {
 
-                    var cell = new ContentControl();
+                    DataBoundMapEntity content = new EmptyMapEnity();
 
-                    if (x == 0 && y == 0)
-                    {
-                        cell.Content = new EmptyMapEnity();
-                    }
-                    else
+                    if(!(x == 0 && y ==0))
                     {
                         lastEntityPicked = mapEntityToPick;
+
                         do
                         {
                             mapEntityToPick = random.Next(0, mapEntities.Count + 3);
@@ -115,15 +112,10 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                                     mapEntityToPick = tempMapEntityIndex;
                                 };
 
-                                cell.Content = new DataBoundMapEntity
+                                content = new DataBoundMapEntity(entityToCopy)
                                 {
-                                    Description = entityToCopy.Description,
-                                    DisplayText = entityToCopy.DisplayText,
-                                    Icon = entityToCopy.Icon,
-                                    ScoringWeight = entityToCopy.ScoringWeight,
                                     Row = y,
                                     Column = x,
-                                    IsMoveAllowedOnThis = entityToCopy.IsMoveAllowedOnThis
                                 };
 
                                 if (!IsCountUnderDistributionWeight(countMapping[entityToCopy] +1, entityToCopy.DistributionWeight, totalRows * totalColumns))
@@ -135,22 +127,12 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                                 {
                                     countMapping[entityToCopy]++;
                                 }
-
-                               
                             }
-                            else
-                            {
-                                cell.Content = new EmptyMapEnity();
-                            }
-                        }
-                        else
-                        {
-                            cell.Content = new EmptyMapEnity();
                         }
                     }
 
 
-                    rowMapEntities.Add(cell.Content as DataBoundMapEntity);
+                    rowMapEntities.Add(content);
                 }
 
                 fieldMap.Add(rowMapEntities);
