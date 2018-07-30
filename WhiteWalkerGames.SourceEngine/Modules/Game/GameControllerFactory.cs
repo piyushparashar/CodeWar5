@@ -2,7 +2,7 @@
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
-    internal class GameFactory
+    internal class GameControllerFactory
     {
         internal static IGameController CreateGameController(IGameControllerContext gameControllerContext)
         {

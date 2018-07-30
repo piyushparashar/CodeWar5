@@ -81,7 +81,7 @@ namespace WhiteWalkersGames.Host
 
             TankBattleGame tankBattleGame = new TankBattleGame();
 
-            myGameHost = GameFactory.CreateGameController(new GameControllerContext {
+            myGameHost = GameControllerFactory.CreateGameController(new GameControllerContext {
                 Game = tankBattleGame,
                 GameMode = GameMode.SinglePlayer
             });

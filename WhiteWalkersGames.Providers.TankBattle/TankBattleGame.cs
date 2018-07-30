@@ -7,6 +7,7 @@ using WhiteWalkersGames.SourceEngine.Modules.Rules;
 namespace WhiteWalkersGames.Providers.TankBattle
 {
     [Export(typeof(IGame))]
+    [ExportGameTitle("TankBattle")]
     public class TankBattleGame : IGame
     {
         public TankBattleGame()
