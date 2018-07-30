@@ -5,26 +5,15 @@ using System.Threading.Tasks;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-
-    public class PlayerMoveEventArgs
-    {
-        IMapEntity CurrentMapEntity { get; set; }
-
-        int Score { get; set; }
-    }
-
     public class GameFactory
     {
-        public static IGameController CreateGameController(IGameContext gameContext)
+        public static IGameController CreateGameController(IGameControllerContext gameControllerContext)
         {
-            return new GameController(gameContext);
+            if(gameControllerContext.GameMode == GameMode.SinglePlayer)
+            {
+                return new SinglePlayerGameController(gameControllerContext);
+            }
+            return new SinglePlayerGameController(gameControllerContext);
         }
-    }
-
-    public enum MapEntityMultiplicity
-    {
-        Single,
-
-        Multiple
     }
 }

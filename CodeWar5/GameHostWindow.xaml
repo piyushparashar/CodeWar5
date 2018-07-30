@@ -3,11 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WhiteWalkersGames.SourceEngine.Modules.Views;assembly=WhiteWalkersGames.SourceEngine"
-              xmlns:local2="clr-namespace:WhiteWalkersGames.SourceEngine.Modules.Infrastructure;assembly=WhiteWalkersGames.SourceEngine"
- 
+       
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="DataTemplate_Level2">
+            <Border Height="50" Width="50" Margin="1" BorderThickness="1" BorderBrush="Black" Focusable="False">
+                <TextBlock Text="{Binding Path=DisplayText}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Border Margin="50" BorderThickness="1" BorderBrush="Black">
             <Grid>
@@ -34,7 +49,9 @@
 
                 <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="myCanvas" >
-                        <Grid.Resources>
+
+                        <ItemsControl x:Name="lst" ItemsSource="{Binding Path=MapEntities}" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
+                        <!--<Grid.Resources>
                             <DataTemplate DataType="{x:Type local2:DataBoundMapEntity}">
                                 <Border Height="50" Width="50" Margin="1" BorderThickness="1" BorderBrush="Black" Focusable="False">
                                     <TextBlock Text="{Binding DisplayText}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
@@ -45,7 +62,7 @@
 
                                 </Border>
                             </DataTemplate>
-                        </Grid.Resources>
+                        </Grid.Resources>-->
                          
                     </Grid>
 

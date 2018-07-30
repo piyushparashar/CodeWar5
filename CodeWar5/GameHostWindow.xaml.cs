@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WhiteWalkersGames.Providers.TankBattle;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
@@ -16,7 +17,10 @@ namespace WhiteWalkersGames.Host
         {
             InitializeComponent();
 
-            MapEntity mapEntityMine = new MapEntity
+            #region backup
+
+            /*
+             MapEntity mapEntityMine = new MapEntity
             {
                 Description = "Mine",
                 Icon = null,
@@ -68,11 +72,18 @@ namespace WhiteWalkersGames.Host
             {
                 DisplayConfiguration = displayConfiguration,
                 InputConfiguration = new InputConfiguration { InputElement = this },
-                IsTwoPlayer = false,
-                ParentControl = this.myCanvas,
+                //GameMode = GameMode.SinglePlayer,
+                //ParentControl = this.myCanvas,
             };
+             */
+            #endregion backup
 
-            myGameHost = GameFactory.CreateGameController(gameContext);
+            TankBattleGame tankBattleGame = new TankBattleGame();
+
+            myGameHost = GameFactory.CreateGameController(new GameControllerContext {
+                Game = tankBattleGame,
+                GameMode = GameMode.SinglePlayer
+            });
 
             IGameViewModel viewModel = myGameHost.GetGameViewModel();
 

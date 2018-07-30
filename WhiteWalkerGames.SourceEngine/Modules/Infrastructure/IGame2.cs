@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
 {
-    public  interface IDisplayConfiguration
+    public interface IGame
     {
-        Grid ParentControl { get; }
-
         string GameTitle { get; }
 
         List<IMapEntity> MapEntities { get; }
+
+        List<IMoveEvaluator> MoveEvaluators { get; set; }
 
         ushort Columns { get; }
 
