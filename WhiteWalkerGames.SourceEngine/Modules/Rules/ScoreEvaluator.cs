@@ -45,6 +45,8 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
                         result.EvaluatedScore = context.CurrentScore;
                     }
                     result.IsMovePossible = moveResult.IsMovePossible;
+                    result.IsGameWon = moveResult.IsGameWon;
+                    result.UpdatdEntities = moveResult.UpdatdEntities;
                 }
                 else
                 {
@@ -56,6 +58,14 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
             {
                 result.IsMovePossible = false;
                 result.EvaluatedScore = context.CurrentScore;
+            }
+
+            if (result.UpdatdEntities.Any())
+            {
+                foreach ((int Row, int Column, IMapEntity UpdatedEntity) resultUpdatdEntity in result.UpdatdEntities)
+                {
+                    context.FieldMap[resultUpdatdEntity.Row][resultUpdatdEntity.Column] = new DataBoundMapEntity(resultUpdatdEntity.UpdatedEntity);
+                }
             }
 
             return result;

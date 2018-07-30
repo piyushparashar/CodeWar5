@@ -43,7 +43,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
             myRouteMap = new RouteMap();
 
             myKeyPressCommand = myGameViewModel.KeyPressCommand;
-            
+
             myKeyPressCommand.InputReceived += OnInputReceived;
 
         }
@@ -121,11 +121,22 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
                 });
             }
 
+            if (result.IsGameWon)
+            {
+                myDisplayAdapter.DisplayScore(result.EvaluatedScore);
+                myDisplayAdapter.DisplayMessage("You won!!");
+                myGameOver = true;
+                myGame.Reset();
+                myKeyPressCommand.EnableEvents(false);
+                return;
+            }
+
             if (!myGameOver && myScore <= 0)
             {
                 myDisplayAdapter.DisplayScore(0);
                 myDisplayAdapter.DisplayMessage("Game Over, you lost!!!");
                 myGameOver = true;
+                myGame.Reset();
                 myKeyPressCommand.EnableEvents(false);
             }
         }

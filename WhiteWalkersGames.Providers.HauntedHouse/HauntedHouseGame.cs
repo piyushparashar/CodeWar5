@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 
 namespace WhiteWalkersGames.Providers.HauntedHouse
@@ -18,7 +19,6 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
                 DisplayText = "G",
                 ScoringWeight = -100,
                 DistributionWeight = 1,
-                Multiplicity = MapEntityMultiplicity.Single
             };
             MapEntity mapEntityZombie = new MapEntity
             {
@@ -27,7 +27,6 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
                 DisplayText = "Z",
                 ScoringWeight = -10,
                 DistributionWeight = 3,
-                Multiplicity = MapEntityMultiplicity.Single
             };
             MapEntity mapEntityWeapon = new MapEntity
             {
@@ -77,6 +76,10 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
         public int MaxScore { get; set; }
 
         public int MoveScore { get; set; }
+        public void Reset()
+        {
+            MoveEvaluator = new HauntedHouseGameMoveEvaluation();
+        }
     }
 
 
@@ -109,7 +112,10 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
                         result.EvaluatedScore = nextEntity.DisplayText == "Z" ? moveEvaluatorContext.CurrentScore + 10 : moveEvaluatorContext.CurrentScore + 20;
                         HasWeapon = false;
                     }
-                    result.EvaluatedScore = 0;
+                    else
+                    {
+                        result.EvaluatedScore = 0;
+                    }
                     result.IsMovePossible = true;
                 }
                 else if (nextEntity.DisplayText == "Ex")
@@ -117,6 +123,11 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
                     result.IsMovePossible = true;
                     result.EvaluatedScore = moveEvaluatorContext.CurrentScore;
                     result.IsGameWon = true;
+                }
+                else if (nextEntity.DisplayText == "")
+                {
+                    result.IsMovePossible = true;
+                    result.EvaluatedScore = moveEvaluatorContext.CurrentScore;
                 }
             }
             else
@@ -132,7 +143,14 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
                 }
             }
 
-            if (GhostLocation.Row == -1 && GhostLocation.Column == -1)
+            UpdateGhostLocation(moveEvaluatorContext, result);
+
+            return result;
+        }
+
+        private void UpdateGhostLocation(IMoveEvaluatorContext moveEvaluatorContext, MoveEvaluationResult result)
+        {
+            if (!GhostLocations.Any())
             {
                 //Find the ghost location
                 for (int i = 0; i < moveEvaluatorContext.FieldMap.Count; i++)
@@ -141,32 +159,38 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
                     {
                         if (moveEvaluatorContext.FieldMap[i][j].DisplayText == "G")
                         {
-                            GhostLocation = (Row: i, Column: j);
-                            break;
+                            GhostLocations.Add((Row: i, Column: j, MapEntity: moveEvaluatorContext.FieldMap[i][j]));
                         }
                     }
                 }
             }
             else
             {
+                var changedLocations = 0;
                 for (int i = 0; i < moveEvaluatorContext.FieldMap.Count; i++)
                 {
                     for (int j = 0; j < moveEvaluatorContext.FieldMap[i].Count; j++)
                     {
-                        if (moveEvaluatorContext.FieldMap[i][j].DisplayText == "" && i != moveEvaluatorContext.NextRow && j != moveEvaluatorContext.NextColumn)
+                        if (moveEvaluatorContext.FieldMap[i][j].DisplayText == "" && i != moveEvaluatorContext.NextRow &&
+                            j != moveEvaluatorContext.NextColumn)
                         {
-                            GhostLocation = (Row: i, Column: j);
-                            break;
+
+                            result.UpdatdEntities.Add((Row: i, Column: j, UpdatedEntity: GhostLocations[changedLocations].MapEntity));
+                            result.UpdatdEntities.Add((Row: GhostLocations[changedLocations].Row, Column: GhostLocations[changedLocations].Column, UpdatedEntity: new MapEntity()));
+                            GhostLocations[changedLocations] = (i, j, GhostLocations[changedLocations].MapEntity);
+                            changedLocations++;
+                            if (changedLocations == GhostLocations.Count)
+                            {
+                                return;
+                            }
                         }
                     }
                 }
             }
-
-            return result;
         }
 
         internal bool HasWeapon { get; set; }
-        internal (int Row, int Column) GhostLocation { get; set; } = (-1, -1);
+        internal List<(int Row, int Column, IMapEntity MapEntity)> GhostLocations { get; set; } = new List<(int Row, int Column, IMapEntity mapEntity)>();
     }
 
 }

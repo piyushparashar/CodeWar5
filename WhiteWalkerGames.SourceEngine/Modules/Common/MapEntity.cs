@@ -8,6 +8,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Common
         {
             Multiplicity = MapEntityMultiplicity.Multiple;
             IsMoveAllowedOnThis = true;
+            DisplayText = "";
         }
         public Image Icon { get; set; }
 
@@ -19,7 +20,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Common
 
         public MapEntityMultiplicity Multiplicity { get; set; }
 
-        public ushort DistributionWeight {get;set;}
+        public ushort DistributionWeight { get; set; }
 
         public bool IsMoveAllowedOnThis { get; set; }
     }

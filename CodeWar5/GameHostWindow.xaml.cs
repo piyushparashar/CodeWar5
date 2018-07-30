@@ -26,8 +26,9 @@ namespace WhiteWalkersGames.Host
 
             IDictionary<string, IGame> myGames = myGameProvider.GetGames();
 
-            myGameHost = GameControllerFactory.CreateGameController(new GameControllerContext {
-                Game = myGames.Values.Last(),
+            myGameHost = GameControllerFactory.CreateGameController(new GameControllerContext
+            {
+                Game = myGames.Values.First(),
                 GameMode = GameMode.SinglePlayer
             });
 
