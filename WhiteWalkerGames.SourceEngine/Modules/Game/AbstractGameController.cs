@@ -1,5 +1,4 @@
 ﻿using WhiteWalkersGames.SourceEngine.Drivers.Display;
-using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
@@ -7,7 +6,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
 {
     internal abstract class AbstractGameController : IGameController
     {
-        protected InputAdapter myInputAdapter;
         protected IGameViewModel myGameViewModel;
         protected IDisplayAdapter myDisplayAdapter;
 

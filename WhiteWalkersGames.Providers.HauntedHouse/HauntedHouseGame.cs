@@ -65,7 +65,7 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
 
         public string GameTitle { get; set; }
 
-        public IMoveEvaluator MoveEvaluators { get; set; }
+        public IMoveEvaluator MoveEvaluator { get; set; }
 
         public ushort Columns { get; set; }
 

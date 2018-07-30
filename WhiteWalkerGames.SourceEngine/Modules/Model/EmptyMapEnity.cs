@@ -5,6 +5,10 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Model
 {
     internal class EmptyMapEnity : DataBoundMapEntity
     {
+        public EmptyMapEnity()
+        {
+            IsMoveAllowedOnThis = true;
+        }
         public override Image Icon => null;
 
         public override string DisplayText => "";

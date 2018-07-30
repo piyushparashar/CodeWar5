@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Model;
+using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 {
@@ -21,7 +22,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 
         internal GameViewModel()
         {
-         
+            KeyPressCommand = new KeyPressCommand();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -114,7 +115,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
             }
         }
 
-        public Grid Canvas { get; }
+        public KeyPressCommand KeyPressCommand { get; set; }
 
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
