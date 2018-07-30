@@ -17,5 +17,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Common
         public int EvaluatedScore { get; set; }
 
         public List<(int Row, int Column, IMapEntity UpdatedEntity)> UpdatdEntities { get; set; }
+
+        public bool IsGameWon { get; set; }
     }
 }

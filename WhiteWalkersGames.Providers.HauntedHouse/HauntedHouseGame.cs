@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 
@@ -10,23 +11,25 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
     {
         public HauntedHouseGame()
         {
-            MapEntity mapEntityMine = new MapEntity
+            MapEntity mapEntityGhost = new MapEntity
             {
                 Description = "Ghost",
                 Icon = null,
                 DisplayText = "G",
                 ScoringWeight = -100,
-                DistributionWeight = 1
+                DistributionWeight = 1,
+                Multiplicity = MapEntityMultiplicity.Single
             };
-            MapEntity mapEntityTrench = new MapEntity
+            MapEntity mapEntityZombie = new MapEntity
             {
                 Description = "Zombie",
                 Icon = null,
                 DisplayText = "Z",
                 ScoringWeight = -10,
-                DistributionWeight = 3
+                DistributionWeight = 3,
+                Multiplicity = MapEntityMultiplicity.Single
             };
-            MapEntity mapEntityEnemy = new MapEntity
+            MapEntity mapEntityWeapon = new MapEntity
             {
                 Description = "Weapon",
                 Icon = null,
@@ -42,30 +45,30 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
                 ScoringWeight = 0,
                 Multiplicity = MapEntityMultiplicity.Single
             };
-            MapEntity mapEntityHill = new MapEntity
+            MapEntity mapEntityWall = new MapEntity
             {
                 Description = "Wall",
                 Icon = null,
                 DisplayText = "W",
-                ScoringWeight = -5,
+                ScoringWeight = 0,
                 DistributionWeight = 1,
                 IsMoveAllowedOnThis = false
             };
 
 
             Columns = 5;
-            GameTitle = "Tank Buster";
+            GameTitle = "Haunted House Game";
             Rows = 5;
             MaxScore = 100;
             MoveScore = -5;
-            MapEntities = new List<IMapEntity> { mapEntityMine, mapEntityHill, mapEntityExit, mapEntityEnemy, mapEntityTrench };
+            MapEntities = new List<IMapEntity> { mapEntityGhost, mapEntityWall, mapEntityExit, mapEntityWeapon, mapEntityZombie };
+            MoveEvaluator = new HauntedHouseGameMoveEvaluation();
         }
 
         public List<IMapEntity> MapEntities { get; set; }
+        public IMoveEvaluator MoveEvaluator { get; set; }
 
         public string GameTitle { get; set; }
-
-        public IMoveEvaluator MoveEvaluators { get; set; }
 
         public ushort Columns { get; set; }
 
@@ -75,4 +78,95 @@ namespace WhiteWalkersGames.Providers.HauntedHouse
 
         public int MoveScore { get; set; }
     }
+
+
+    public class HauntedHouseGameMoveEvaluation : IMoveEvaluator
+    {
+        public MoveEvaluationResult EvaluateMove(IMoveEvaluatorContext moveEvaluatorContext)
+        {
+            var result = new MoveEvaluationResult();
+
+            var nextEntity = moveEvaluatorContext.FieldMap[moveEvaluatorContext.NextRow][moveEvaluatorContext.NextColumn];
+
+            if (nextEntity.IsMoveAllowedOnThis)
+            {
+
+                if (nextEntity.DisplayText == "X")
+                {
+                    if (!HasWeapon)
+                    {
+                        result.UpdatdEntities.Add((Row: moveEvaluatorContext.NextRow, Column: moveEvaluatorContext.NextColumn, UpdatedEntity: new MapEntity()));
+                        HasWeapon = true;
+                    }
+                    result.EvaluatedScore = moveEvaluatorContext.CurrentScore;
+                    result.IsMovePossible = true;
+                }
+                else if (nextEntity.DisplayText == "G" || nextEntity.DisplayText == "Z")
+                {
+                    if (HasWeapon)
+                    {
+                        result.UpdatdEntities.Add((Row: moveEvaluatorContext.NextRow, Column: moveEvaluatorContext.NextColumn, UpdatedEntity: new MapEntity()));
+                        result.EvaluatedScore = nextEntity.DisplayText == "Z" ? moveEvaluatorContext.CurrentScore + 10 : moveEvaluatorContext.CurrentScore + 20;
+                        HasWeapon = false;
+                    }
+                    result.EvaluatedScore = 0;
+                    result.IsMovePossible = true;
+                }
+                else if (nextEntity.DisplayText == "Ex")
+                {
+                    result.IsMovePossible = true;
+                    result.EvaluatedScore = moveEvaluatorContext.CurrentScore;
+                    result.IsGameWon = true;
+                }
+            }
+            else
+            {
+                if (nextEntity.DisplayText == "W")
+                {
+                    result.IsMovePossible = false;
+                    result.EvaluatedScore = moveEvaluatorContext.CurrentScore;
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+
+            if (GhostLocation.Row == -1 && GhostLocation.Column == -1)
+            {
+                //Find the ghost location
+                for (int i = 0; i < moveEvaluatorContext.FieldMap.Count; i++)
+                {
+                    for (int j = 0; j < moveEvaluatorContext.FieldMap[i].Count; j++)
+                    {
+                        if (moveEvaluatorContext.FieldMap[i][j].DisplayText == "G")
+                        {
+                            GhostLocation = (Row: i, Column: j);
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < moveEvaluatorContext.FieldMap.Count; i++)
+                {
+                    for (int j = 0; j < moveEvaluatorContext.FieldMap[i].Count; j++)
+                    {
+                        if (moveEvaluatorContext.FieldMap[i][j].DisplayText == "" && i != moveEvaluatorContext.NextRow && j != moveEvaluatorContext.NextColumn)
+                        {
+                            GhostLocation = (Row: i, Column: j);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        internal bool HasWeapon { get; set; }
+        internal (int Row, int Column) GhostLocation { get; set; } = (-1, -1);
+    }
+
 }
