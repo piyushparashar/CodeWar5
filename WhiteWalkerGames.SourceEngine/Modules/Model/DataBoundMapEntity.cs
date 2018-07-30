@@ -19,6 +19,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Model
             Multiplicity = mapEntity.Multiplicity;
             DistributionWeight = mapEntity.DistributionWeight;
             IsMoveAllowedOnThis = mapEntity.IsMoveAllowedOnThis;
+            IsActive = true;
         }
 
         public virtual bool IsActive { get; set; }
