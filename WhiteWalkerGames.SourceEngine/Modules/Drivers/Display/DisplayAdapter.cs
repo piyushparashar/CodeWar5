@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
-using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
@@ -16,8 +15,6 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
     internal interface IDisplayAdapter
     {
         void DrawField(List<IMapEntity> mapEntities, int rows, int colunms, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap);
-
-        void DrawSubject(int row, int column);
 
         void DisplayScore(int score);
 
@@ -129,6 +126,10 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                             }
                         }
                     }
+                    else
+                    {
+                        content.IsActive = true;
+                    }
 
 
                     rowMapEntities.Add(content);
@@ -158,11 +159,6 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
         private bool IsCountUnderDistributionWeight(int entityAddCount, int distributionWeight, int totalCells)
         {
             return (distributionWeight == 0) || entityAddCount < (distributionWeight * totalCells / 10);
-        }
-
-        public void DrawSubject(int x, int y)
-        {
-
         }
     }
 }

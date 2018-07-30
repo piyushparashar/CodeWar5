@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Model;
+using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 {
@@ -18,10 +19,12 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         private List<string> myLegends;
         private string myGameTitle;
         private ObservableCollection<ObservableCollection<DataBoundMapEntity>> myMapEntities;
+        private IDictionary<string, IGame> myGames;
 
         internal GameViewModel()
         {
-         
+            KeyPressCommand = new KeyPressCommand();
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -32,6 +35,17 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
             set
             {
                 myGameTitle = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public IDictionary<string, IGame> Games
+        {
+            get => myGames;
+            set
+            {
+                myGames = value;
+
                 RaisePropertyChanged();
             }
         }
@@ -114,11 +128,15 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
             }
         }
 
-        public Grid Canvas { get; }
+        public KeyPressCommand KeyPressCommand { get; set; }
+
+        public GameControllerCommand GameControllerCommand { get; set; }
+
+        public StartGameCommand StartGameCommand { get; set; }
 
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }       
+        }
     }
 }

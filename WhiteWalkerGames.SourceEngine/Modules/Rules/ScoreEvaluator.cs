@@ -45,17 +45,31 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
                         result.EvaluatedScore = context.CurrentScore;
                     }
                     result.IsMovePossible = moveResult.IsMovePossible;
+                    result.IsGameWon = moveResult.IsGameWon;
+                    result.UpdatdEntities = moveResult.UpdatdEntities;
                 }
                 else
                 {
                     result.IsMovePossible = true;
                     result.EvaluatedScore = context.CurrentScore + nextEntity.ScoringWeight + myMoveScore;
+                    if (nextEntity.DisplayText == "Ex")
+                    {
+                        result.IsGameWon = true;
+                    }
                 }
             }
             else
             {
                 result.IsMovePossible = false;
                 result.EvaluatedScore = context.CurrentScore;
+            }
+
+            if (result.UpdatdEntities.Any())
+            {
+                foreach ((int Row, int Column, IMapEntity UpdatedEntity) resultUpdatdEntity in result.UpdatdEntities)
+                {
+                    context.FieldMap[resultUpdatdEntity.Row][resultUpdatdEntity.Column] = new DataBoundMapEntity(resultUpdatdEntity.UpdatedEntity);
+                }
             }
 
             return result;

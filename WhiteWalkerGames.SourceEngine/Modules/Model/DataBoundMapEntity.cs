@@ -1,10 +1,14 @@
-﻿using System.Windows.Controls;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Model
 {
-    internal class DataBoundMapEntity : IMapEntity
+    internal class DataBoundMapEntity : IMapEntity, INotifyPropertyChanged
     {
+        private bool myIsActive;
+
         internal DataBoundMapEntity()
         {
 
@@ -19,11 +23,18 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Model
             Multiplicity = mapEntity.Multiplicity;
             DistributionWeight = mapEntity.DistributionWeight;
             IsMoveAllowedOnThis = mapEntity.IsMoveAllowedOnThis;
-            IsActive = true;
         }
 
-        public virtual bool IsActive { get; set; }
-       
+        public virtual bool IsActive
+        {
+            get => myIsActive;
+            set
+            {
+                myIsActive = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public virtual Image Icon { get; set; }
 
         public virtual string DisplayText { get; set; }
@@ -41,5 +52,12 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Model
         public int Row { get; set; }
 
         public int Column { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

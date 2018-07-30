@@ -5,6 +5,7 @@ using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Game;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
+using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
 namespace WhiteWalkersGames.Host
 {
@@ -26,19 +27,20 @@ namespace WhiteWalkersGames.Host
 
             IDictionary<string, IGame> myGames = myGameProvider.GetGames();
 
-            myGameHost = GameControllerFactory.CreateGameController(new GameControllerContext {
-                Game = myGames.Values.Last(),
-                GameMode = GameMode.SinglePlayer
-            });
+            if (myGames.Any())
+            {
+                myGameHost = GameControllerFactory.CreateGameController(GameMode.SinglePlayer);
+            }
 
             IGameViewModel viewModel = myGameHost.GetGameViewModel();
 
-            this.DataContext = viewModel;
-        }
+            viewModel.Games = myGames;
 
-        private void StartGame(object sender, RoutedEventArgs e)
-        {
-            myGameHost.StartGame();
+            viewModel.GameControllerCommand = new GameControllerCommand(myGameHost);
+
+            viewModel.StartGameCommand = new StartGameCommand(myGameHost);
+
+            this.DataContext = viewModel;
         }
     }
 }
