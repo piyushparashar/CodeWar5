@@ -106,7 +106,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
         /// <summary>
         /// Extensions path
         /// </summary>
-        private const string PluginPath = "C:\\TEMP";
+        private const string PluginPath = "%temp%";
 
         #endregion Fields
     }
