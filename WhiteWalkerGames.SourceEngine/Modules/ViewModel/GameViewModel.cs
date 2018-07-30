@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
+using WhiteWalkersGames.SourceEngine.Modules.Model;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 {
@@ -16,7 +17,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         private string myScore;
         private List<string> myLegends;
         private string myGameTitle;
-        private ObservableCollection<ObservableCollection<IMapEntity>> myMapEntities;
+        private ObservableCollection<ObservableCollection<DataBoundMapEntity>> myMapEntities;
 
         internal GameViewModel()
         {
@@ -35,7 +36,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
             }
         }
 
-        public ObservableCollection<ObservableCollection<IMapEntity>> MapEntities
+        public ObservableCollection<ObservableCollection<DataBoundMapEntity>> MapEntities
         {
             get
             {

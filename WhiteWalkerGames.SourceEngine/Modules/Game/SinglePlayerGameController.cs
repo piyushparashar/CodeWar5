@@ -5,6 +5,7 @@ using System.Windows.Input;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Game
@@ -23,7 +24,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
         private ushort myRowsCount;
         private ushort myColumnsCount;
         private IGame myGame;
-        private ObservableCollection<ObservableCollection<IMapEntity>> myFieldMap;
+        private ObservableCollection<ObservableCollection<DataBoundMapEntity>> myFieldMap;
         private RouteMap myRouteMap;
         private IScoreEvaluator myScoreEvaluator;
 
@@ -34,7 +35,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
             myRowsCount = myGame.Rows;
             myColumnsCount = myGame.Columns;
 
-            myFieldMap = new ObservableCollection<ObservableCollection<IMapEntity>>();
+            myFieldMap = new ObservableCollection<ObservableCollection<DataBoundMapEntity>>();
 
             myScoreEvaluator = new ScoreEvaluator(myGame.MoveScore);
             myRouteMap = new RouteMap();
@@ -80,14 +81,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
                 return;
             }
 
-            //Do scoring
-            //Evaluate what is th score
-            //If possible to move ?
-            //Yes 
-            //Is score > 0 
-            //YES
-
-
             MoveEvaluationResult result = myScoreEvaluator.EvaluateScore(new ScoreEvaluationContext
             {
                 CurrentColumn = myCurrentColumn,
@@ -103,12 +96,16 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
             {
                 myScore = result.EvaluatedScore;
 
+                myFieldMap[myCurrentRow][myCurrentColumn].IsActive = false;
+
                 //After evaluation and scoring update the coordinates and display
                 myCurrentColumn = myNextColumn;
                 myCurrentRow = myNextRow;
 
-                myDisplayAdapter.DrawSubject(myCurrentRow, myCurrentColumn);
+                myFieldMap[myCurrentRow][myCurrentColumn].IsActive = true;
+
                 myDisplayAdapter.DisplayScore(myScore);
+
                 myRouteMap.Steps.Add(new RouteMapEntry
                 {
                     Column = myCurrentColumn,
