@@ -74,5 +74,8 @@ namespace WhiteWalkersGames.Providers.TankBattle
         public int MaxScore { get; set; }
 
         public int MoveScore { get; set; }
+        public void Reset()
+        {
+        }
     }
 }

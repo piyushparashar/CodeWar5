@@ -17,5 +17,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Common
         int MaxScore { get; }
 
         int MoveScore { get; }
+
+        void Reset();
     }
 }
