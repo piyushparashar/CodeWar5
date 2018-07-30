@@ -52,6 +52,10 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
                 {
                     result.IsMovePossible = true;
                     result.EvaluatedScore = context.CurrentScore + nextEntity.ScoringWeight + myMoveScore;
+                    if (nextEntity.DisplayText == "Ex")
+                    {
+                        result.IsGameWon = true;
+                    }
                 }
             }
             else
