@@ -45,7 +45,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
             myRouteMap = new RouteMap();
 
             myKeyPressCommand = myGameViewModel.KeyPressCommand;
-
+            myKeyPressCommand.InputReceived -= OnInputReceived;
             myKeyPressCommand.InputReceived += OnInputReceived;
         }
 
