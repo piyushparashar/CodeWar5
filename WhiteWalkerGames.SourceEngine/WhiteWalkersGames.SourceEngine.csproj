@@ -49,6 +49,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\Common\IEvaluationContext.cs" />
+    <Compile Include="Modules\Common\MoveEvaluatorContext.cs" />
     <Compile Include="Modules\Game\GameProvider.cs" />
     <Compile Include="Modules\Common\IGameMetadata.cs" />
     <Compile Include="Modules\Drivers\Display\DisplayAdapter.cs" />

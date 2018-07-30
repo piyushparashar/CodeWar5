@@ -1,4 +1,8 @@
-﻿using WhiteWalkersGames.SourceEngine.Modules.Common;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using WhiteWalkersGames.SourceEngine.Modules.Common;
+using WhiteWalkersGames.SourceEngine.Modules.Model;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Rules
 {
@@ -28,11 +32,13 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
             {
                 if (myCustomEvaluator != null)
                 {
-                    var moveResult = myCustomEvaluator.EvaluateMove(context);
+                    var moveEvaluatorContext = GetMoveEvaluatorContext(context);
+
+                    var moveResult = myCustomEvaluator.EvaluateMove(moveEvaluatorContext);
 
                     if (moveResult.IsMovePossible)
                     {
-                        result.EvaluatedScore = context.CurrentScore + nextEntity.ScoringWeight + myMoveScore;
+                        result.EvaluatedScore = moveResult.EvaluatedScore + myMoveScore;
                     }
                     else
                     {
@@ -53,6 +59,27 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
             }
 
             return result;
+        }
+
+        private static MoveEvaluatorContext GetMoveEvaluatorContext(IScoreEvaluationContext context)
+        {
+            var fieldMap = new List<List<IMapEntity>>();
+
+            foreach (ObservableCollection<DataBoundMapEntity> boundMapEntities in context.FieldMap)
+            {
+                fieldMap.Add(boundMapEntities.Cast<IMapEntity>().ToList());
+            }
+
+            var moveEvaluatorContext = new MoveEvaluatorContext()
+            {
+                CurrentColumn = context.CurrentColumn,
+                CurrentRow = context.CurrentRow,
+                CurrentScore = context.CurrentScore,
+                NextColumn = context.NextColumn,
+                NextRow = context.NextRow,
+                FieldMap = fieldMap
+            };
+            return moveEvaluatorContext;
         }
     }
 }
