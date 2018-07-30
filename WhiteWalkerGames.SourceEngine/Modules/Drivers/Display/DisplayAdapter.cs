@@ -8,13 +8,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 
 namespace WhiteWalkersGames.SourceEngine.Drivers.Display
 {
     internal interface IDisplayAdapter
     {
-        void DrawField(List<IMapEntity> mapEntities, int rows, int colunms, ref ObservableCollection<ObservableCollection<IMapEntity>> fieldMap);
+        void DrawField(List<IMapEntity> mapEntities, int rows, int colunms, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap);
 
         void DrawSubject(int row, int column);
 
@@ -54,7 +55,7 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
             myViewModel.Legends = legends.ToList();
         }
 
-        public void DrawField(List<IMapEntity> mapEntities, int totalRows, int totalColumns, ref ObservableCollection<ObservableCollection<IMapEntity>> fieldMap)
+        public void DrawField(List<IMapEntity> mapEntities, int totalRows, int totalColumns, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap)
         {
             fieldMap.Clear();
 
@@ -67,10 +68,10 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
             int lastEntityPicked = 0;
             int totalEntitiesTypes = mapEntities.Count;
 
-            ObservableCollection<IMapEntity> rowMapEntities = new ObservableCollection<IMapEntity>();
+            ObservableCollection<DataBoundMapEntity> rowMapEntities = new ObservableCollection<DataBoundMapEntity>();
             for (int x = 0; x < totalColumns; x++)
             {
-                rowMapEntities = new ObservableCollection<IMapEntity>();
+                rowMapEntities = new ObservableCollection<DataBoundMapEntity>();
 
                 for (int y = 0; y < totalRows; y++)
                 {

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Common
 {
@@ -22,7 +23,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Common
 
         RouteMap RouteMap { get; set; }
 
-        ObservableCollection<ObservableCollection<IMapEntity>> FieldMap { get; set; }
+        List<List<IMapEntity>> FieldMap { get; }
 
         int CurrentScore { get; set; }
     }
@@ -32,5 +33,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Common
         public bool IsMovePossible { get; set; }
 
         public int EvaluatedScore { get; set; }
+
+        public List<(int Row,int Column, IMapEntity UpdatedEntity)> UpdatdEntities { get; set; }
     }
 }

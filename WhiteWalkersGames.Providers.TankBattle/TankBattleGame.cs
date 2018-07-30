@@ -67,7 +67,7 @@ namespace WhiteWalkersGames.Providers.TankBattle
 
         public string GameTitle { get; set; }
 
-        public List<IMoveEvaluator> MoveEvaluators { get; set; }
+        public IMoveEvaluator MoveEvaluators { get; set; }
 
         public ushort Columns { get; set; }
 

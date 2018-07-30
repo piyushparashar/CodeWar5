@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Model
 {
     internal class EmptyMapEnity : DataBoundMapEntity
     {

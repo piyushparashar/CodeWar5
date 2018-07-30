@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 
-namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
+namespace WhiteWalkersGames.SourceEngine.Modules.Model
 {
     internal class DataBoundMapEntity : IMapEntity
     {
@@ -20,6 +20,8 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
             DistributionWeight = mapEntity.DistributionWeight;
             IsMoveAllowedOnThis = mapEntity.IsMoveAllowedOnThis;
         }
+
+        public virtual bool IsActive { get; set; }
        
         public virtual Image Icon { get; set; }
 

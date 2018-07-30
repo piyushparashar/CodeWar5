@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using WhiteWalkersGames.SourceEngine.Modules.Common;
+using WhiteWalkersGames.SourceEngine.Modules.Model;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 {
     internal interface IGameViewModel : INotifyPropertyChanged
     {
-        ObservableCollection<ObservableCollection<IMapEntity>> MapEntities { get; set; }
+        ObservableCollection<ObservableCollection<DataBoundMapEntity>> MapEntities { get; set; }
 
         string Message
         {
