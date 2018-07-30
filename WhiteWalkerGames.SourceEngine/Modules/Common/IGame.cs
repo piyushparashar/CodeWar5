@@ -8,7 +8,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Common
 
         List<IMapEntity> MapEntities { get; }
 
-        IMoveEvaluator MoveEvaluators { get; set; }
+        IMoveEvaluator MoveEvaluator { get; set; }
 
         ushort Columns { get; }
 

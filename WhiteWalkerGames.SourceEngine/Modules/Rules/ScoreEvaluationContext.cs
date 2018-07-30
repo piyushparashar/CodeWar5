@@ -1,25 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
-using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.Model;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Rules
 {
-    internal interface IScoreEvaluationContext
+    internal interface IScoreEvaluationContext : IEvaluationContext
     {
-        int CurrentRow { get; set; }
-
-        int CurrentColumn { get; set; }
-
-        int NextRow { get; set; }
-
-        int NextColumn { get; set; }
-
-        RouteMap RouteMap { get; set; }
-
         ObservableCollection<ObservableCollection<DataBoundMapEntity>> FieldMap { get; set; }
-
-        int CurrentScore { get; set; }
     }
 
     internal class ScoreEvaluationContext : IScoreEvaluationContext

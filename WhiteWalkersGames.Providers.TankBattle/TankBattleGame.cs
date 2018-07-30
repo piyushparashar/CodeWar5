@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
-using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
-using WhiteWalkersGames.SourceEngine.Modules.Rules;
 
 namespace WhiteWalkersGames.Providers.TankBattle
 {
@@ -65,9 +63,9 @@ namespace WhiteWalkersGames.Providers.TankBattle
 
         public List<IMapEntity> MapEntities { get; set; }
 
-        public string GameTitle { get; set; }
+        public IMoveEvaluator MoveEvaluator { get; set; }
 
-        public IMoveEvaluator MoveEvaluators { get; set; }
+        public string GameTitle { get; set; }
 
         public ushort Columns { get; set; }
 

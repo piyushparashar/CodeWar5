@@ -37,7 +37,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
 
             myFieldMap = new ObservableCollection<ObservableCollection<DataBoundMapEntity>>();
 
-            myScoreEvaluator = new ScoreEvaluator(myGame.MoveScore);
+            myScoreEvaluator = new ScoreEvaluator(myGame.MoveScore, myGame.MoveEvaluator);
             myRouteMap = new RouteMap();
         }
 
