@@ -26,6 +26,13 @@
             </ItemsControl>
         </DataTemplate>
     </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding KeyPressCommand}" Key="Left" CommandParameter="{Binding RelativeSource={RelativeSource Self} }"></KeyBinding>
+        <KeyBinding Command="{Binding KeyPressCommand}" Key="Right" CommandParameter="{Binding RelativeSource={RelativeSource Self} }"></KeyBinding>
+        <KeyBinding Command="{Binding KeyPressCommand}" Key="Up" CommandParameter="{Binding RelativeSource={RelativeSource Self} }"></KeyBinding>
+        <KeyBinding Command="{Binding KeyPressCommand}" Key="Down" CommandParameter="{Binding RelativeSource={RelativeSource Self} }"></KeyBinding>
+    </Window.InputBindings>
     <Grid>
         <Border Margin="50" BorderThickness="1" BorderBrush="Black">
             <Grid>
