@@ -9,23 +9,42 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Rules
 
     internal class ScoreEvaluator : IScoreEvaluator
     {
-        private int myMoveScore;
+        private readonly int myMoveScore;
+        private readonly IMoveEvaluator myCustomEvaluator;
 
-        public ScoreEvaluator(int moveScore)
+        public ScoreEvaluator(int moveScore, IMoveEvaluator customMoveEvaluator)
         {
             myMoveScore = moveScore;
+            myCustomEvaluator = customMoveEvaluator;
         }
 
         public MoveEvaluationResult EvaluateScore(IScoreEvaluationContext context)
         {
             MoveEvaluationResult result = new MoveEvaluationResult();
-            var nextEntity = context.FieldMap[context.NextRow][ context.NextColumn];
+
+            var nextEntity = context.FieldMap[context.NextRow][context.NextColumn];
 
             if (nextEntity.IsMoveAllowedOnThis)
             {
-                result.IsMovePossible = true;
+                if (myCustomEvaluator != null)
+                {
+                    var moveResult = myCustomEvaluator.EvaluateMove(context);
 
-                result.EvaluatedScore = context.CurrentScore + nextEntity.ScoringWeight + myMoveScore;
+                    if (moveResult.IsMovePossible)
+                    {
+                        result.EvaluatedScore = context.CurrentScore + nextEntity.ScoringWeight + myMoveScore;
+                    }
+                    else
+                    {
+                        result.EvaluatedScore = context.CurrentScore;
+                    }
+                    result.IsMovePossible = moveResult.IsMovePossible;
+                }
+                else
+                {
+                    result.IsMovePossible = true;
+                    result.EvaluatedScore = context.CurrentScore + nextEntity.ScoringWeight + myMoveScore;
+                }
             }
             else
             {
