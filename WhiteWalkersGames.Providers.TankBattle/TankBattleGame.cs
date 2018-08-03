@@ -54,7 +54,7 @@ namespace WhiteWalkersGames.Providers.TankBattle
 
 
             Columns = 5;
-            GameTitle = "Tank Buster";
+            GameTitle = "Tank Battle";
             Rows = 5;
             MaxScore = 100;
             MoveScore = -5;
