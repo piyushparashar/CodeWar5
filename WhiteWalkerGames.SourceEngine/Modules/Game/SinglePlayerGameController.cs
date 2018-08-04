@@ -51,6 +51,9 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
 
         public override void StartGame()
         {
+            myGame.Reset();
+            myScoreEvaluator = new ScoreEvaluator(myGame.MoveScore, myGame.MoveEvaluator);
+
             myKeyPressCommand.EnableEvents(true);
             myDisplayAdapter.DisplayMessage("");
 
