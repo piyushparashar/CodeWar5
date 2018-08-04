@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MahApps.Metro.Controls;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
@@ -12,7 +13,7 @@ namespace WhiteWalkersGames.Host
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class GameHostWindow : Window
+    public partial class GameHostWindow : MetroWindow
     {
 
         private IGameController myGameHost = null;

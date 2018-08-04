@@ -13,7 +13,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 
             if (isActive)
             {
-                return Brushes.Red;
+                return Brushes.DarkGreen;
             }
             else
             {
