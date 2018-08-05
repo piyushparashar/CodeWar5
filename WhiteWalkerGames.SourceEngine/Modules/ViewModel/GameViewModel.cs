@@ -8,6 +8,7 @@ using WhiteWalkersGames.SourceEngine.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Game;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.Interfaces;
 using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
@@ -25,6 +26,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         private ObservableCollection<ObservableCollection<DataBoundMapEntity>> myMapEntities;
         private IDictionary<string, IGame> myGames;
         private GameMode myGameMode;
+        private IRandomMapGenerator myMapGenerator = new RandomMapGenerator();
 
         internal GameViewModel()
         {
@@ -136,8 +138,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
             }
         }
 
-        private IGameController myGameController;
-
         public KeyPressCommand KeyPressCommand { get; set; }
 
         public GameControllerCommand GameControllerCommand { get; set; }
@@ -169,87 +169,7 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         {
             fieldMap.Clear();
 
-            Dictionary<IMapEntity, int> countMapping = new Dictionary<IMapEntity, int>();
-
-            mapEntities.ForEach(entity => countMapping.Add(entity, 0));
-
-            Random random = new Random();
-            int mapEntityToPick = 0;
-            int lastEntityPicked = 0;
-            int totalEntitiesTypes = mapEntities.Count;
-
-            ObservableCollection<DataBoundMapEntity> rowMapEntities = new ObservableCollection<DataBoundMapEntity>();
-            for (int x = 0; x < totalColumns; x++)
-            {
-                rowMapEntities = new ObservableCollection<DataBoundMapEntity>();
-
-                for (int y = 0; y < totalRows; y++)
-                {
-
-                    DataBoundMapEntity content = new EmptyMapEnity();
-
-                    if (!(x == 0 && y == 0))
-                    {
-                        lastEntityPicked = mapEntityToPick;
-
-                        do
-                        {
-                            mapEntityToPick = random.Next(0, mapEntities.Count + 3);
-
-                        } while (lastEntityPicked == mapEntityToPick);
-
-                        lastEntityPicked = mapEntityToPick;
-
-                        if (mapEntityToPick < mapEntities.Count)
-                        {
-                            var entityToCopy = mapEntities.ElementAt(mapEntityToPick);
-
-                            int entityAddCount = countMapping[entityToCopy];
-
-                            if ((entityToCopy.Multiplicity == MapEntityMultiplicity.Multiple || entityAddCount < 1))
-                            {
-                                while (entityToCopy.Multiplicity != MapEntityMultiplicity.Single && !IsCountUnderDistributionWeight(entityAddCount, entityToCopy.DistributionWeight, totalRows * totalColumns))
-                                {
-                                    var tempMapEntityIndex = random.Next(0, mapEntities.Count);
-                                    var tempEntity = mapEntities.ElementAt(tempMapEntityIndex);
-                                    if (lastEntityPicked == tempMapEntityIndex || tempEntity.Multiplicity == MapEntityMultiplicity.Single)
-                                    {
-                                        continue;
-                                    }
-                                    entityToCopy = tempEntity;
-                                    entityAddCount = countMapping[entityToCopy];
-                                    mapEntityToPick = tempMapEntityIndex;
-                                };
-
-                                content = new DataBoundMapEntity(entityToCopy)
-                                {
-                                    Row = y,
-                                    Column = x,
-                                };
-
-                                if (!IsCountUnderDistributionWeight(countMapping[entityToCopy] + 1, entityToCopy.DistributionWeight, totalRows * totalColumns))
-                                {
-                                    countMapping.Remove(entityToCopy);
-                                    mapEntities.Remove(entityToCopy);
-                                }
-                                else
-                                {
-                                    countMapping[entityToCopy]++;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        content.IsActive = true;
-                    }
-
-
-                    rowMapEntities.Add(content);
-                }
-
-                fieldMap.Add(rowMapEntities);
-            }
+            fieldMap = myMapGenerator.GenerateMap(mapEntities, totalRows, totalColumns);
 
             MapEntities = fieldMap;
         }
@@ -274,11 +194,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private bool IsCountUnderDistributionWeight(int entityAddCount, int distributionWeight, int totalCells)
-        {
-            return (distributionWeight == 0) || entityAddCount < (distributionWeight * totalCells / 10);
-        }
+        }     
     }
 }
