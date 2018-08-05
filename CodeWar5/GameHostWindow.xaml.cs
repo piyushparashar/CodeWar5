@@ -1,12 +1,9 @@
 ﻿using MahApps.Metro.Controls;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Game;
-using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
-using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
 namespace WhiteWalkersGames.Host
 {
@@ -16,9 +13,8 @@ namespace WhiteWalkersGames.Host
     public partial class GameHostWindow : MetroWindow
     {
 
-        private IGameController myGameHost = null;
-
         private IGameProvider myGameProvider = new GameProvider();
+        private IGameViewModel myGameViewModel = new GameViewModel();
 
         public GameHostWindow()
         {
@@ -30,18 +26,12 @@ namespace WhiteWalkersGames.Host
 
             if (myGames.Any())
             {
-                myGameHost = GameControllerFactory.CreateGameController(GameMode.SinglePlayer);
+                GameControllerFactory.SetViewModel(myGameViewModel);
+
+                myGameViewModel.Games = myGames;
+
+                this.DataContext = myGameViewModel;
             }
-
-            IGameViewModel viewModel = myGameHost.GetGameViewModel();
-
-            viewModel.Games = myGames;
-
-            viewModel.GameControllerCommand = new GameControllerCommand(myGameHost);
-
-            viewModel.StartGameCommand = new StartGameCommand(myGameHost);
-
-            this.DataContext = viewModel;
         }
     }
 }

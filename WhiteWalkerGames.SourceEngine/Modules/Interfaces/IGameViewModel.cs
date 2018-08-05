@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
+using WhiteWalkersGames.SourceEngine.Modules.Game;
 using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
@@ -43,10 +44,9 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 
         IDictionary<string, IGame> Games { get; set; }
 
-        string GameTitle
-        { get; set; }
+        string GameTitle { get; set; }
 
-
+        GameMode GameMode { get; }
 
         KeyPressCommand KeyPressCommand { get; set; }
 

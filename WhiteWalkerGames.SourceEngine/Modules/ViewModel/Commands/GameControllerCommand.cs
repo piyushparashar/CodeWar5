@@ -6,20 +6,9 @@ using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands
 {
-    internal interface IGameControllerCommand : ICommand
+   
+    internal class GameControllerCommand : ICommand
     {
-
-
-    }
-    internal class GameControllerCommand : IGameControllerCommand
-    {
-        private IGameController myGameController;
-
-        public GameControllerCommand(IGameController gameController)
-        {
-            myGameController = gameController;
-        }
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -29,12 +18,10 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands
 
         public void Execute(object parameter)
         {
-            IGame gameToStart = parameter as IGame;
+            IGameControllerContext context = parameter as IGameControllerContext;
+            IGameController gameController = GameControllerFactory.CreateGameController(context.GameMode);
 
-            myGameController.InitializeGame(new GameControllerContext {
-                Game = gameToStart,
-                GameMode = GameMode.SinglePlayer
-            });
+            gameController.InitializeGame(context);
         }
     }
 }

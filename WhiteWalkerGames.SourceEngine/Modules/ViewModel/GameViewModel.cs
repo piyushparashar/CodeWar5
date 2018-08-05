@@ -1,16 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
+using WhiteWalkersGames.SourceEngine.Drivers.Display;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
+using WhiteWalkersGames.SourceEngine.Modules.Game;
+using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
+using WhiteWalkersGames.SourceEngine.Modules.Interfaces;
 using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 {
 
-    internal class GameViewModel : IGameViewModel
+    internal class GameViewModel : IGameViewModel, IDisplayAdapter
     {
         private string myMessage;
         private string myHealth;
@@ -20,11 +25,16 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
         private string myGameTitle;
         private ObservableCollection<ObservableCollection<DataBoundMapEntity>> myMapEntities;
         private IDictionary<string, IGame> myGames;
+        private GameMode myGameMode;
+        private IRandomMapGenerator myMapGenerator = new RandomMapGenerator();
 
         internal GameViewModel()
         {
             KeyPressCommand = new KeyPressCommand();
 
+            GameControllerCommand = new GameControllerCommand();
+
+            StartGameCommand = new StartGameCommand();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -134,9 +144,56 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel
 
         public StartGameCommand StartGameCommand { get; set; }
 
+        public GameMode GameMode
+        {
+            get => myGameMode;
+            set
+            {
+                myGameMode = value;
+            }
+        }
+
+        #region IDisplayAdapter Implementation
+
+        public void DisplayHealth(int health)
+        {
+            Health = "Health: " + health;
+        }
+
+        public void DisplayLegends(string[] legends)
+        {
+            Legends = legends.ToList();
+        }
+
+        public void DrawField(List<IMapEntity> mapEntities, int totalRows, int totalColumns, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap)
+        {
+            fieldMap.Clear();
+
+            fieldMap = myMapGenerator.GenerateMap(mapEntities, totalRows, totalColumns);
+
+            MapEntities = fieldMap;
+        }
+
+        public void DisplayScore(int score)
+        {
+            Score = $"Score: {score}";
+        }
+
+        public void DisplayMessage(string message)
+        {
+            Message = message;
+        }
+
+        public void DisplayGameTitle(string title)
+        {
+            GameTitle = title;
+        }
+
+        #endregion
+
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }     
     }
 }

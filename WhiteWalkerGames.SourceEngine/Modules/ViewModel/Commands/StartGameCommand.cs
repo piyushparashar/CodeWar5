@@ -4,15 +4,15 @@
 
 using System;
 using System.Windows.Input;
+using WhiteWalkersGames.SourceEngine.Modules.Game;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands
 {
     internal class StartGameCommand : ICommand
     {
-        internal StartGameCommand(IGameController gameController)
+        internal StartGameCommand()
         {
-            myGameController = gameController;
         }
 
         public bool CanExecute(object parameter)
@@ -22,11 +22,14 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands
 
         public void Execute(object parameter)
         {
-            myGameController?.StartGame();
+            GameMode gameMode = (GameMode)parameter;
+
+            IGameController gameController = GameControllerFactory.CreateGameController(gameMode);
+
+            gameController.StartGame();
         }
 
         public event EventHandler CanExecuteChanged;
 
-        private IGameController myGameController;
     }
 }
