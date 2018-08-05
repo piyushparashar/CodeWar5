@@ -9,23 +9,18 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
         protected IGameViewModel myGameViewModel;
         protected IDisplayAdapter myDisplayAdapter;
 
-        internal AbstractGameController()
+        internal AbstractGameController(IGameViewModel gameViewModel)
         {
-            myGameViewModel = new GameViewModel();
+            myGameViewModel = gameViewModel;
         }
 
         public virtual void StartGame()
         {
         }
 
-        public IGameViewModel GetGameViewModel()
-        {
-            return myGameViewModel;
-        }
-
         public virtual void InitializeGame(IGameControllerContext context)
         {
-            myDisplayAdapter = new DisplayAdapter(myGameViewModel);
+            myDisplayAdapter = myGameViewModel as IDisplayAdapter;
         }
     }
 }

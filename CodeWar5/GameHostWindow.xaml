@@ -76,7 +76,7 @@
 
                 <TextBlock Foreground="DarkGreen" FontSize="25" Grid.Row="4" Text="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="18" ></TextBlock>
 
-                <Button BorderBrush="DarkGreen" Background="Black" Foreground="DarkGreen" Grid.Row="5" Height="25" Width="100" Margin="10" Content="Start" Command="{Binding StartGameCommand}">
+                <Button BorderBrush="DarkGreen" Background="Black" Foreground="DarkGreen" Grid.Row="5" Height="25" Width="100" Margin="10" Content="Start" Command="{Binding StartGameCommand}" CommandParameter="{Binding Path=GameMode}">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                     <Style.Triggers>

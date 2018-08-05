@@ -54,7 +54,7 @@
     <Compile Include="Modules\Game\GameInputEventArgs.cs" />
     <Compile Include="Modules\Game\GameProvider.cs" />
     <Compile Include="Modules\Common\IGameMetadata.cs" />
-    <Compile Include="Modules\Drivers\Display\DisplayAdapter.cs" />
+    <Compile Include="Modules\Drivers\Display\IDisplayAdapter.cs" />
     <Compile Include="Modules\Game\AbstractGameController.cs" />
     <Compile Include="Modules\Game\GameControllerContext.cs" />
     <Compile Include="Modules\Game\GameMode.cs" />

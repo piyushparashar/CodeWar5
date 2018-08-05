@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
+using WhiteWalkersGames.SourceEngine.Modules.Game;
+using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel.Behaviors
 {
@@ -46,11 +48,13 @@ namespace WhiteWalkersGames.SourceEngine.Modules.ViewModel.Behaviors
         {
             IGameViewModel gameViewModel = (sender as ComboBox).DataContext as IGameViewModel;
 
-            var gameData = (KeyValuePair<string, IGame>)(selectionChangedEventArgs.AddedItems[0]);
+            var selectedGame = (KeyValuePair<string, IGame>)(selectionChangedEventArgs.AddedItems[0]);
 
-            gameViewModel.GameControllerCommand.Execute(gameData.Value);
+            IGameControllerContext gameControllerContext = new GameControllerContext { Game = selectedGame.Value, GameMode = gameViewModel.GameMode };
 
-            gameViewModel.StartGameCommand.Execute(null);
+            gameViewModel.GameControllerCommand.Execute(gameControllerContext);
+
+            gameViewModel.StartGameCommand.Execute(gameViewModel.GameMode);
         }
     }
 }
