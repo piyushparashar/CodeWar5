@@ -47,7 +47,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ComboBox behaviors:GameSelectionChangedBehavior.GameSelection="True" ItemsSource="{Binding Path=Games}" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedIndex="0" Grid.Row="0" HorizontalAlignment="Right" >
+                <ComboBox Focusable="False" behaviors:GameSelectionChangedBehavior.GameSelection="True" ItemsSource="{Binding Path=Games}" DisplayMemberPath="Key" SelectedValuePath="Value" SelectedIndex="0" Grid.Row="0" HorizontalAlignment="Right" >
                   
                 </ComboBox>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
