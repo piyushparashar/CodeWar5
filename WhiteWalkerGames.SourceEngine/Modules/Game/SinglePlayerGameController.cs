@@ -6,6 +6,7 @@ using WhiteWalkersGames.SourceEngine.Modules.Common;
 using WhiteWalkersGames.SourceEngine.Modules.Infrastructure;
 using WhiteWalkersGames.SourceEngine.Modules.Model;
 using WhiteWalkersGames.SourceEngine.Modules.Rules;
+using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
 using WhiteWalkersGames.SourceEngine.Modules.ViewModel.Commands;
 
 namespace WhiteWalkersGames.SourceEngine.Modules.Game
@@ -29,9 +30,15 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
         private IScoreEvaluator myScoreEvaluator;
         private IKeyPressCommand myKeyPressCommand;
 
+        public SinglePlayerGameController(IGameViewModel gameViewModel) : base(gameViewModel) 
+        {
+
+        }
 
         public override void InitializeGame(IGameControllerContext context)
         {
+            Reset();
+
             base.InitializeGame(context);
 
             myGame = context.Game;
@@ -45,8 +52,20 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
             myRouteMap = new RouteMap();
 
             myKeyPressCommand = myGameViewModel.KeyPressCommand;
-            myKeyPressCommand.InputReceived -= OnInputReceived;
             myKeyPressCommand.InputReceived += OnInputReceived;
+        }
+
+        private void Reset()
+        {
+            if (myKeyPressCommand != null)
+            {
+                myKeyPressCommand.InputReceived -= OnInputReceived;
+            }
+            if(myGame != null)
+            {
+                myGame.Reset();
+            }
+            myFieldMap?.Clear();
         }
 
         public override void StartGame()
@@ -127,7 +146,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
                 myDisplayAdapter.DisplayScore(result.EvaluatedScore);
                 myDisplayAdapter.DisplayMessage("You won!!");
                 myGameOver = true;
-                myGame.Reset();
                 myKeyPressCommand.EnableEvents(false);
                 return;
             }
@@ -137,7 +155,6 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Game
                 myDisplayAdapter.DisplayScore(0);
                 myDisplayAdapter.DisplayMessage("Game Over, you lost!!!");
                 myGameOver = true;
-                myGame.Reset();
                 myKeyPressCommand.EnableEvents(false);
             }
         }

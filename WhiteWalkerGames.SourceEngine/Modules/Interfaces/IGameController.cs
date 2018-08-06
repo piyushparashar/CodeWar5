@@ -7,7 +7,5 @@ namespace WhiteWalkersGames.SourceEngine.Modules.Infrastructure
         void InitializeGame(IGameControllerContext context);
 
         void StartGame();
-
-        IGameViewModel GetGameViewModel();
     }
 }

@@ -1,60 +1,17 @@
-﻿/* -------------------------------------------------------------------------------------------------
-   Restricted - Copyright (C) Siemens Healthcare GmbH/Siemens Medical Solutions USA, Inc., 2018. All rights reserved
-   ------------------------------------------------------------------------------------------------- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using WhiteWalkersGames.SourceEngine.Modules.Common;
-using WhiteWalkersGames.SourceEngine.Modules.Model;
-using WhiteWalkersGames.SourceEngine.Modules.ViewModel;
+using WhiteWalkersGames.SourceEngine.Modules.Interfaces;
 
-namespace WhiteWalkersGames.SourceEngine.Drivers.Display
+namespace WhiteWalkersGames.SourceEngine.Modules.Model
 {
-    internal interface IDisplayAdapter
+    internal class RandomMapGenerator : IRandomMapGenerator
     {
-        void DrawField(List<IMapEntity> mapEntities, int rows, int colunms, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap);
-
-        void DisplayScore(int score);
-
-        void DisplayMessage(string message);
-
-        void DisplayLegends(string[] legends);
-
-        void DisplayHealth(int health);
-
-        void DisplayCustomScore(string message);
-
-        void DisplayGameTitle(string title);
-    }
-
-    internal class DisplayAdapter : IDisplayAdapter
-    {
-        private IGameViewModel myViewModel;
-
-        public DisplayAdapter(IGameViewModel viewModel)
+        public ObservableCollection<ObservableCollection<DataBoundMapEntity>> GenerateMap(List<IMapEntity> mapEntities, int totalRows, int totalColumns)
         {
-            myViewModel = viewModel;
-        }
-        public void DisplayHealth(int health)
-        {
-            myViewModel.Health = "Health: " + health;
-        }
-
-        public void DisplayCustomScore(string score)
-        {
-            myViewModel.CustomScore = score;
-        }
-
-        public void DisplayLegends(string[] legends)
-        {
-            myViewModel.Legends = legends.ToList();
-        }
-
-        public void DrawField(List<IMapEntity> mapEntities, int totalRows, int totalColumns, ref ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap)
-        {
-            fieldMap.Clear();
+            ObservableCollection<ObservableCollection<DataBoundMapEntity>> fieldMap = new ObservableCollection<ObservableCollection<DataBoundMapEntity>>();
 
             Dictionary<IMapEntity, int> countMapping = new Dictionary<IMapEntity, int>();
 
@@ -75,7 +32,7 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
 
                     DataBoundMapEntity content = new EmptyMapEnity();
 
-                    if(!(x == 0 && y ==0))
+                    if (!(x == 0 && y == 0))
                     {
                         lastEntityPicked = mapEntityToPick;
 
@@ -114,7 +71,7 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                                     Column = x,
                                 };
 
-                                if (!IsCountUnderDistributionWeight(countMapping[entityToCopy] +1, entityToCopy.DistributionWeight, totalRows * totalColumns))
+                                if (!IsCountUnderDistributionWeight(countMapping[entityToCopy] + 1, entityToCopy.DistributionWeight, totalRows * totalColumns))
                                 {
                                     countMapping.Remove(entityToCopy);
                                     mapEntities.Remove(entityToCopy);
@@ -138,22 +95,7 @@ namespace WhiteWalkersGames.SourceEngine.Drivers.Display
                 fieldMap.Add(rowMapEntities);
             }
 
-            myViewModel.MapEntities = fieldMap;
-        }
-
-        public void DisplayScore(int score)
-        {
-            myViewModel.Score = $"Score: {score}";
-        }
-
-        public void DisplayMessage(string message)
-        {
-            myViewModel.Message = message;
-        }
-
-        public void DisplayGameTitle(string title)
-        {
-            myViewModel.GameTitle = title;
+            return fieldMap;
         }
 
         private bool IsCountUnderDistributionWeight(int entityAddCount, int distributionWeight, int totalCells)
